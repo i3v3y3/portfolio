@@ -1,0 +1,52 @@
+---
+title: Satellite Power Distribution
+slug: satellite-eps
+description: A 6-layer electrical power system board for a CubeSat. Four regulated rails on redundant paths, split into six independently protected branches so a single fault stays in its own branch.
+stack:
+  - Power electronics
+  - 6-layer PCB
+  - DC-DC conversion
+  - Overcurrent protection
+  - MCU trade study
+date: "2023-01"
+github: null
+demo: null
+featured: true
+cover: null
+coverCaption: "Layout capture — 6-layer stack-up"
+result: "92% conversion efficiency against a 5 W orbit-average budget"
+---
+
+## The problem
+
+A CubeSat gets one attempt. There is no maintenance window, no second board,
+and no way to power-cycle anything by hand. The electrical power system has to
+fail in ways that do not take the spacecraft with them, on a budget measured in
+single-digit watts.
+
+## What I built
+
+The power distribution board, taken from schematic capture through layout to
+fabrication release across a three-month placement. Four regulated rails on
+redundant distribution paths, carrying DC-DC conversion, filtering and
+overcurrent protection.
+
+## Why six independently protected branches
+
+The failure mode that matters is not a rail browning out, it is one subsystem
+faulting and dragging the bus down with it. Splitting distribution into six
+branches, each behind its own overcurrent device, means a short in one payload
+opens that branch and leaves the other five running. The cost is board area and
+part count for protection you hope never operates.
+
+## Why 6 layers
+
+Dedicated power and ground planes. With four switching converters on one board,
+a shared plane means each converter's switching noise couples into the others'
+feedback paths, and the efficiency you measured on the bench is not what you get
+in orbit. Separate planes cost two extra layers and buy predictable behaviour.
+
+## Result
+
+**92% conversion efficiency** against a **5 W** orbit-average budget under bench
+characterisation, carried through two design reviews.

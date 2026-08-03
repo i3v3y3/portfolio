@@ -1,0 +1,58 @@
+---
+title: Level Sensing & Energy Metering
+slug: veno-instrumentation
+description: Sensing hardware behind Veno's level sensor and VeNode energy meter. Multi-protocol field instrumentation that turns a bespoke deployment into a configuration job.
+stack:
+  - RS485
+  - Modbus
+  - one-wire
+  - LoRa
+  - NFC
+  - Embedded C
+  - KiCad
+  - Fusion 360
+date: "2024-04"
+github: null
+demo: https://veno.co.ke
+featured: true
+cover: null
+coverCaption: "Product photo — level sensor hardware"
+result: "7 products shipped across school, utility, retail and municipal sites"
+---
+
+## The problem
+
+Clients kept asking for the same thing wearing different clothes: how full is
+the tank, how much power is this drawing. Every one was being quoted weeks of
+custom development, and commissioning a bespoke application to read two sensors
+is overkill.
+
+## What I built
+
+Sensing hardware for Veno's level sensor and the VeNode energy meter, on a
+five-engineer team where I owned embedded hardware design. The metering scales
+from a single appliance to a full industrial complex, and readings stream to a
+real-time dashboard.
+
+## Choosing the radio per site
+
+Four radio technologies, picked against the site rather than by preference:
+
+| Radio | When it wins |
+| --- | --- |
+| LoRa | Distance, no mains power, low data rate. A tank in a field. |
+| WiFi | Existing infrastructure on site, higher data rate. |
+| BLE | Commissioning and local diagnostics from a phone. |
+| NFC | Tap-to-configure with no pairing step. |
+
+The interesting constraint is that range and power pull against each other. A
+level sensor on a borehole has no mains supply and needs to last on a battery,
+which rules out anything that keeps a radio warm.
+
+## Result
+
+Seven products shipped in ten months across school, utility, retail and
+municipal deployments, and roughly six weeks of per-deployment engineering
+removed from each client install.
+
+<Verify href="https://veno.co.ke/about" label="Named on the Veno team page" />

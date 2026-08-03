@@ -1,0 +1,52 @@
+---
+title: Smart ATM Controller
+slug: quepay-controller
+description: Firmware and a 4-layer controller board that puts mobile-money payment onto automated machines, from water ATMs to laundry. One board covers six machine types.
+stack:
+  - C++
+  - FreeRTOS
+  - ESP-IDF
+  - Altium Designer
+  - 4-layer PCB
+  - LTE
+  - BLE
+  - I2C
+date: "2025-02"
+github: null
+demo: https://quepay.co.ke
+featured: true
+cover: null
+coverCaption: "Board photo — top and bottom"
+result: "6+ machine verticals on one board, KES 10M+ processed"
+---
+
+## The problem
+
+Most automated machines in Kenya still run on cash. That quietly costs operators
+three things at once: revenue leaks to theft and manual reconciliation, nobody
+can see how a machine is performing until they physically visit it, and without
+a transaction record an operator cannot reach formal credit.
+
+## What I built
+
+Firmware in C++ on FreeRTOS and ESP-IDF that meters out product by volume across
+four preset tiers, applies the right price to each, and streams every
+transaction back over LTE. The board is a 4-layer design in Altium carrying the
+cellular modem, BLE and the sensing interfaces.
+
+## Why 4 layers
+
+Two would have been cheaper per unit. The board carries a cellular modem
+alongside low-level sensing, so it needs a continuous ground plane to keep RF
+noise off the measurement lines, and a separate power plane to hold rails steady
+through transmit bursts. Squeezing that onto two layers means routing around
+your own return paths, and the noise shows up as bad readings in the field
+rather than on the bench.
+
+## Result
+
+One controller now serves six kinds of machine — water and milk ATMs, coffee,
+vending, laundry, pool tables — rather than a bespoke board per vertical. The
+fleet has handled **KES 10M+** in payments against a **99% uptime** commitment.
+
+<Verify href="https://quepay.co.ke" label="The shipped product" />
