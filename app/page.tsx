@@ -116,18 +116,18 @@ export default function Home() {
 
         <section className="mb-20" aria-labelledby="verify-heading">
           <SectionHeading id="verify-heading">How to verify this</SectionHeading>
-          <p className="mb-5 max-w-[40rem] text-[15px] text-muted">
+          <p className="mb-5 max-w-[34rem] text-[15px] text-muted">
             Most of what is on this page can be checked without asking me. Where a claim has
             a public source, here it is.
           </p>
           <ul className="flex flex-col gap-3">
             {VERIFY.map((v) => (
-              <li key={v.href} className="flex flex-col gap-0.5">
+              <li key={v.href} className="flex flex-col">
                 <a
                   href={v.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="self-start text-[15px] text-accent hover:underline"
+                  className="inline-flex min-h-[44px] items-center self-start text-[15px] text-accent hover:underline"
                 >
                   {v.label}
                 </a>
@@ -139,7 +139,7 @@ export default function Home() {
 
         <section className="mb-20" aria-labelledby="about-heading">
           <SectionHeading id="about-heading">About</SectionHeading>
-          <div className="flex max-w-[40rem] flex-col gap-4 text-[15px] leading-relaxed text-muted">
+          <div className="flex max-w-[34rem] flex-col gap-4 text-[15px] leading-relaxed text-muted">
             <p>
               I studied Control and Instrumentation Engineering at Jomo Kenyatta University of
               Agriculture and Technology, and I have spent the years since on the part of the

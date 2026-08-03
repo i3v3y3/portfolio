@@ -85,7 +85,7 @@ export default function Timeline({ milestones }: { milestones: Milestone[] }) {
                   href={m.verify.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1 inline-flex items-center gap-1.5 self-start font-mono text-[12px] text-accent hover:underline"
+                  className="mt-0.5 inline-flex min-h-[44px] items-center gap-1.5 self-start font-mono text-[12px] text-accent hover:underline"
                 >
                   <svg
                     className="w-3.5 h-3.5 shrink-0"
