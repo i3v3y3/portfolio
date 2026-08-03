@@ -41,12 +41,12 @@ export default function Timeline({ milestones }: { milestones: Milestone[] }) {
   return (
     <section className="mb-20" aria-labelledby="timeline-heading">
       <div className="flex items-center gap-3 mb-8">
-        <span
+        <h2
           id="timeline-heading"
           className="text-[13px] uppercase tracking-widest font-medium text-foreground"
         >
           Experience
-        </span>
+        </h2>
         <div className="flex-1 h-px bg-border" />
       </div>
 
