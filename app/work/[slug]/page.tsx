@@ -70,11 +70,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </header>
 
-        {!meta.cover && (
-          <div className="mb-8 grid aspect-[16/10] place-items-center rounded-xl border border-dashed border-border bg-surface p-5 text-center">
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-dim">
-              {meta.coverCaption ?? 'Photo pending'}
-            </span>
+        {/* No empty placeholder here. A pending slot is a note to ourselves;
+            a reader should see the writing, not a hole where a photo isn't. */}
+        {meta.cover && (
+          <div className="mb-8 overflow-hidden rounded-xl border border-border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={meta.cover} alt={meta.title} className="aspect-[16/10] w-full object-cover" />
           </div>
         )}
 

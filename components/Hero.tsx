@@ -33,10 +33,23 @@ const LINKS = [
  *   name → what she does → how long → CV in hand.
  * The CV download is the one action a recruiter actually takes, so it is a
  * primary control here rather than a footer link.
+ *
+ * PORTRAIT: set PORTRAIT to the image path once Ivy supplies one. Until then
+ * the hero is deliberately single-column. An empty 400px placeholder was the
+ * second thing the eye landed on and read as an unfinished page — worse than
+ * no portrait at all. A pending slot is a note to ourselves, not something a
+ * recruiter should ever see.
  */
+const PORTRAIT: string | null = null
 export default function Hero() {
   return (
-    <header className="mb-16 grid grid-cols-1 items-start gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:gap-12">
+    <header
+      className={
+        PORTRAIT
+          ? 'mb-16 grid grid-cols-1 items-start gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:gap-12'
+          : 'mb-16 flex flex-col gap-5'
+      }
+    >
       <div className="flex flex-col gap-5">
         <h1 className="text-[clamp(2rem,1.2rem+3.6vw,3.15rem)] tracking-[-0.015em]">
           Hi, I&apos;m Ivy — an <span className="text-accent">embedded systems engineer</span>{' '}
@@ -102,11 +115,16 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="grid aspect-[3/2] w-full max-w-[22rem] place-items-center overflow-hidden rounded-xl border border-dashed border-border bg-surface p-5 text-center md:aspect-[4/5]">
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-dim">
-          Portrait pending
-        </span>
-      </div>
+      {PORTRAIT && (
+        <div className="w-full max-w-[22rem] overflow-hidden rounded-xl border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PORTRAIT}
+            alt="Ivy Matobori"
+            className="aspect-[3/2] w-full object-cover md:aspect-[4/5]"
+          />
+        </div>
+      )}
     </header>
   )
 }
