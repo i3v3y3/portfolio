@@ -60,7 +60,12 @@ test.describe('case studies', () => {
       await page.goto(`/work/${slug}/`)
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
       await expect(page.locator('article')).toBeVisible()
-      await expect(page.getByRole('link', { name: '← Back' })).toBeVisible()
+      // FINDING-007: the back link doubles as site identity. Someone landing
+      // here from a search result must learn whose portfolio this is without
+      // scrolling to the footer.
+      const home = page.locator('a[href="/"]').first()
+      await expect(home).toBeVisible()
+      await expect(home).toContainText('Ivy Matobori')
     })
   }
 
