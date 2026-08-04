@@ -21,6 +21,19 @@ describe('public assets', () => {
     expect(fs.statSync(p).size).toBeGreaterThan(1000)
   })
 
+  it('the CV button actually downloads rather than opening inline', () => {
+    // GitHub Pages sends application/pdf with no Content-Disposition, so
+    // without an explicit download attribute the browser renders the file in a
+    // tab and a button labelled "Download CV" does not download anything.
+    const hero = fs.readFileSync(
+      path.join(process.cwd(), 'components', 'Hero.tsx'),
+      'utf8',
+    )
+    expect(hero, 'CV link lost its download attribute').toMatch(
+      /download="Ivy_Matobori_Resume\.pdf"/,
+    )
+  })
+
   it('carries no assets belonging to the source repo', () => {
     const strays = ['about-me.png', 'avatar.jpg']
       .filter((f) => fs.existsSync(path.join(pub, f)))

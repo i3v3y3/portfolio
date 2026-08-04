@@ -77,6 +77,12 @@ export default function Hero() {
         <div className="flex flex-wrap gap-2.5">
           <a
             href={asset('/Ivy_Matobori_Resume.pdf')}
+            // Without this the button lies: GitHub Pages serves application/pdf
+            // with no Content-Disposition, so the browser renders it inline in a
+            // new tab instead of saving it. The attribute value is the filename
+            // the recruiter ends up with, so it carries her full name rather
+            // than whatever the URL basename happens to be.
+            download="Ivy_Matobori_Resume.pdf"
             className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-accent px-4 py-2 text-[15px] font-medium text-accent-text no-underline transition-opacity hover:opacity-90"
           >
             <svg
