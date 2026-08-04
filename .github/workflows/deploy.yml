@@ -79,8 +79,13 @@ jobs:
         # copying public/, fail here rather than serving a 404.
         run: |
           test -s out/Ivy_Matobori_Resume.pdf
-          test -s out/Ivy_Matobori_Resume_OctaviaCarbon_IC.pdf
-          echo "CV PDFs present"
+          echo "CV present"
+          # Role-tailored resumes carry a phone number and name the employer
+          # they were written for. They are sent directly, never published.
+          if ls out/*OctaviaCarbon* out/*_IC.pdf >/dev/null 2>&1; then
+            echo "::error::a role-tailored resume is about to be published"
+            exit 1
+          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:
