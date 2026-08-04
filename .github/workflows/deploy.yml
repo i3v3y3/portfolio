@@ -89,7 +89,15 @@ jobs:
             https://*) ;;
             *) echo "::error::og:image is not absolute — unfurls need a full URL"; exit 1 ;;
           esac
-          curl -sfI "$OG" >/dev/null || { echo "::error::og:image 404s at $OG"; exit 1; }
+          # Resolve the URL against what is about to ship rather than fetching
+          # it. This step runs before deploy-pages, so curling the live URL
+          # tests the PREVIOUS deploy — which fails every time the filename
+          # changes, including the run that first introduces it.
+          BP="${{ steps.pages.outputs.base_path }}"
+          BP="${BP%/}"
+          OG_PATH="out$(printf '%s' "$OG" | sed -E "s#^https://[^/]+##; s#^${BP}##")"
+          test -s "$OG_PATH" || { echo "::error::og:image points at $OG but $OG_PATH is not in the build"; exit 1; }
+          echo "og:image resolves to $OG_PATH"
 
       - name: Check the resume actually shipped
         # This is the one link a recruiter clicks. If the export ever stops
