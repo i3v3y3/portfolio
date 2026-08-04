@@ -32,7 +32,7 @@ const VERIFY = [
   {
     label: 'GitHub',
     href: 'https://github.com/i3v3y3',
-    note: 'Schematics, layouts and firmware, including the Atmega328P board.',
+    note: 'Schematics, layouts and firmware.',
   },
   {
     label: 'LinkedIn',

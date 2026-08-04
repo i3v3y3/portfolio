@@ -35,7 +35,6 @@ the number below: it will anchor you. Try to recall the actual value first.
 | Claim | Where | Status |
 | --- | --- | --- |
 | KES 10M+ processed, 99% uptime, 6+ verticals | QuePay | ✅ from quepay.co.ke |
-| 40 × 50 mm, 50% Uno replication | Atmega board | ✅ your LinkedIn post |
 | 4-layer QuePay board, 6-layer EPS board | both | ⚠️ from Jeff, needs your confirm |
 | ±2% dispense accuracy | QuePay | ❌ drafted |
 | 92% conversion efficiency, 5 W budget | EPS | ❌ drafted |
@@ -48,21 +47,9 @@ the number below: it will anchor you. Try to recall the actual value first.
 
 ---
 
-## 3. Three things we think are wrong
+## 3. Things we think are wrong
 
-**a. CP2101 or CP2102?**
-Your repo README says **CP2101**. Your LinkedIn post says **CP2102**. Different parts.
-The schematic in `First-Atmega328P-code` settles it — please check and tell us which.
-A hardware reviewer will open that repo.
-
-**b. The Atmega8 claim.**
-Your LinkedIn said you used the bridge "instead of the Atmega8 used on some boards."
-That is not right: the Uno used an ATmega8U2 (R1/R2) or ATmega16U2 (R3), never a plain
-ATmega8. Worse, an earlier draft of your CV dropped your hedge and stated it flatly.
-The site now avoids the part number entirely and describes the decision instead. Your CV
-may still need fixing.
-
-**c. Fusion 360 timing.**
+**a. Fusion 360 timing.**
 Your CV says you did enclosure and packaging design at Veno (through Jan 2025). Your
 `LearnFusion360` repo was last pushed **May 2025** and describes a 5-week beginner plan.
 If the CAD came after the job, the CV claim needs rewording.
@@ -111,7 +98,6 @@ Every image on the site is an empty dashed placeholder. Anything you can publish
 in rough order of value:
 
 1. A portrait — every comparable portfolio has one
-2. The Atmega328P board (yours outright, already open source, zero clearance needed)
 3. Any employer board you have written permission to show
 4. Screenshots from Altium or KiCad — often easier to clear than a photo of hardware
 

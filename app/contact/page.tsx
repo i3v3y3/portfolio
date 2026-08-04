@@ -23,12 +23,6 @@ const CHANNELS = [
     note: 'Best for anything with detail in it.',
   },
   {
-    label: 'Phone',
-    value: '+254 113 607 316',
-    href: 'tel:+254113607316',
-    note: 'Nairobi, so UTC+3.',
-  },
-  {
     label: 'LinkedIn',
     value: 'ivy-matobori',
     href: 'https://www.linkedin.com/in/ivy-matobori-bba4071a4/',
