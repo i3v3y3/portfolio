@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test'
  */
 
 test.describe('the 15-second screener scan', () => {
-  test('name, role and CV are all reachable without scrolling past the hero', async ({ page }) => {
+  test('name, role and resume are all reachable without scrolling past the hero', async ({ page }) => {
     // The h1 became a thesis rather than an introduction when the home page was
     // restructured, so name and role now live in the eyebrow above it. Assert on
     // the hero as a whole rather than the h1 — what matters is that a screener
@@ -18,7 +18,7 @@ test.describe('the 15-second screener scan', () => {
     await expect(hero).toContainText('Ivy Matobori')
     await expect(hero).toContainText('Instrumentation & Control Engineer')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-    await expect(page.getByRole('link', { name: /view cv/i })).toBeVisible()
+    await expect(page.getByRole('link', { name: /view resume/i })).toBeVisible()
   })
 
   test('experience is dated so nobody has to do arithmetic', async ({ page }) => {
@@ -37,13 +37,13 @@ test.describe('the 15-second screener scan', () => {
   })
 })
 
-test.describe('CV download', () => {
+test.describe('resume download', () => {
   test('the PDF resolves — the one action a recruiter takes', async ({ page, request }) => {
     await page.goto('/')
-    const href = await page.getByRole('link', { name: /view cv/i }).getAttribute('href')
+    const href = await page.getByRole('link', { name: /view resume/i }).getAttribute('href')
     expect(href).toBeTruthy()
     const res = await request.get(href!)
-    expect(res.status(), 'CV link is a 404').toBe(200)
+    expect(res.status(), 'resume link is a 404').toBe(200)
     expect(res.headers()['content-type']).toContain('pdf')
   })
 })

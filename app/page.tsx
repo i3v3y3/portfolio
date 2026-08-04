@@ -10,7 +10,7 @@ import { asset } from '@/lib/asset'
 /**
  * Home.
  *
- *   Hero            who + thesis + CV
+ *   Hero            who + thesis + resume
  *   What I work on  four capability areas
  *   Selected work   three cards, then through to /work/
  *   From the bench  four photos, then through to /gallery/

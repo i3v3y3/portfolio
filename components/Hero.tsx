@@ -10,7 +10,7 @@ import { asset } from '@/lib/asset'
  * are hers — this is the same skeleton, not the same page.
  *
  * The two CTAs are deliberately unequal. "See my work" is where a curious
- * reader goes; the CV is what a recruiter actually came for, so it stays the
+ * reader goes; the resume is what a recruiter actually came for, so it stays the
  * filled button even though the reference puts two outlines side by side.
  */
 const PORTRAIT = '/images/about/on-site.webp'
@@ -69,7 +69,7 @@ export default function Hero() {
             >
               <path d="M14 3h7v7M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
             </svg>
-            View CV
+            View Resume
           </a>
         </div>
 

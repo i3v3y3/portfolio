@@ -25,7 +25,7 @@ Nobody asked you about that. It is your call, not ours.
 
 ## 2. Numbers we could not source
 
-These appear on the site or in your CV. Some came from your own public posts and are
+These appear on the site or in your resume. Some came from your own public posts and are
 solid. The rest were **drafted, not sourced** — plausible for your work, but nobody
 measured them.
 
@@ -50,15 +50,15 @@ the number below: it will anchor you. Try to recall the actual value first.
 ## 3. Things we think are wrong
 
 **a. Fusion 360 timing.**
-Your CV says you did enclosure and packaging design at Veno (through Jan 2025). Your
+Your resume says you did enclosure and packaging design at Veno (through Jan 2025). Your
 `LearnFusion360` repo was last pushed **May 2025** and describes a 5-week beginner plan.
-If the CAD came after the job, the CV claim needs rewording.
+If the CAD came after the job, the resume claim needs rewording.
 
 ---
 
 ## 4. TIA Portal and PLC
 
-Your CV claims **Siemens TIA Portal, PLC programming, ladder logic and HMI**. There is no
+Your resume claims **Siemens TIA Portal, PLC programming, ladder logic and HMI**. There is no
 evidence for any of it in your public record. Your one PLC-labelled repo
 (`Power_Supply_Mod`, "My first PLC ladder logic programs") actually contains a 240 V
 bench power supply schematic — looks like a copy-paste error in the description.
@@ -75,7 +75,7 @@ labelled honestly.
 
 **A better option, if you have two spare evenings:** do a small OpenPLC or TIA Portal
 trial exercise and push it to your GitHub with a README. That turns the weakest claim on
-your CV into a true, dated, publicly verifiable one.
+your resume into a true, dated, publicly verifiable one.
 
 ---
 

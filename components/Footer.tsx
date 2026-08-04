@@ -28,8 +28,8 @@ const SOCIAL = [
  * the footer should recede, and mono uppercase at this position competes with
  * the nav instead of sitting under it.
  *
- * The link list carries CV alongside the four routes. A footer nav is allowed
- * to hold more than the header does, and the CV is the one destination worth
+ * The link list carries the resume alongside the four routes. A footer nav is
+ * allowed to hold more than the header does, and the resume is the destination
  * reaching from the bottom of any page.
  *
  * Below `sm` the three zones stack and centre; at 320px they will not sit on
@@ -56,14 +56,14 @@ export default function Footer() {
               </li>
             ))}
             <li>
-              {/* asset() — a raw <a> gets no basePath, and the CV 404s without it. */}
+              {/* asset() — a raw <a> gets no basePath, and the resume 404s without it. */}
               <a
                 href={asset('/Ivy_Matobori_Resume.pdf')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted no-underline transition-colors hover:text-accent"
               >
-                CV
+                Resume
               </a>
             </li>
           </ul>

@@ -74,12 +74,12 @@ jobs:
           fi
           echo "All asset URLs carry $BP"
 
-      - name: Check the CV actually shipped
+      - name: Check the resume actually shipped
         # This is the one link a recruiter clicks. If the export ever stops
         # copying public/, fail here rather than serving a 404.
         run: |
           test -s out/Ivy_Matobori_Resume.pdf
-          echo "CV present"
+          echo "Resume present"
           # Role-tailored resumes carry a phone number and name the employer
           # they were written for. They are sent directly, never published.
           if ls out/*OctaviaCarbon* out/*_IC.pdf >/dev/null 2>&1; then

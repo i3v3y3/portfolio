@@ -55,7 +55,10 @@ export default function Nav() {
         <Link
           href="/"
           aria-current={pathname === '/' ? 'page' : undefined}
-          className="mr-auto hidden font-mono text-[12px] uppercase tracking-[0.14em] text-foreground no-underline transition-colors hover:text-accent sm:inline"
+          // Bold sans sentence-case, against mono uppercase links. Set in the
+        // same style as the links it sat beside, the name read as a fifth nav
+        // item rather than the wordmark anchoring the row.
+        className="mr-auto hidden text-[15px] font-semibold tracking-[-0.01em] text-foreground no-underline transition-colors hover:text-accent sm:inline"
         >
           Ivy Matobori
         </Link>

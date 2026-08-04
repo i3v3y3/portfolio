@@ -3,13 +3,19 @@
  *
  * A plain data file on purpose: edit it with any text editor, no React needed.
  *
- * WRITING THE BULLETS. Describe scope and what was built. Numbers appear only
- * where a public source backs them — quepay.co.ke publishes the 99% uptime
- * commitment, the KES 10M+ processed and the six machine verticals, so those
- * are safe. The drafted figures on the résumé (±1.8%, 43%, 58%, 12 sites) are
- * deliberately NOT repeated here: a résumé is handed to one reader who can ask
- * about it, a website is published to everyone. Once Ivy confirms them they can
- * come in.
+ * WRITING THE BULLETS. Describe scope and what was built.
+ *
+ * SOURCING, and it is currently inconsistent. Quepay, Veno and Kenya Space
+ * Agency carry only figures a public source backs — quepay.co.ke publishes the
+ * 99% uptime commitment, the KES 10M+ processed and the six machine verticals.
+ * Their drafted résumé figures (±1.8%, 43%, 58%, 12 sites) were deliberately
+ * left off, on the reasoning that a résumé goes to one reader who can question
+ * it in the room while a website goes to everyone and gets quoted back.
+ *
+ * Gearbox breaks that rule: its numbers (three demonstrators, 16 weeks, ten
+ * criteria, four boards, six interfaces, 35%) are drafted, not sourced. Added
+ * on request. Resolve this one way or the other once Ivy has confirmed the
+ * numbers — either the rest get their figures back, or these come out.
  *
  * Dates are month-precise. Kenya Space Agency was a three-month placement
  * during her degree; a bare year would imply a full-time role.
@@ -79,6 +85,17 @@ export const experience: ExperienceGroup[] = [
           'Produced the electrical interface, verification and test documentation the design was assessed against at two multidisciplinary design reviews.',
         ],
         project: { slug: 'satellite-eps', label: 'Satellite Power Distribution' },
+      },
+      {
+        org: 'Gearbox',
+        title: 'Embedded Systems Apprentice',
+        location: 'Nairobi · On-site',
+        period: 'Jan 2022 – Apr 2022',
+        points: [
+          'Built three working embedded demonstrators in 16 weeks — microcontroller, sensor and actuator systems taken from a brief to hardware, each validated against ten functional acceptance criteria before hand-off to the project team.',
+          'Turned four boards from concept to tested hardware on a three-week cycle, doing schematic capture, two-layer layout and DFM review in KiCad, then carrying each through fabrication and bring-up.',
+          'Brought six sensor interfaces online in bare-metal embedded C, and cut prototype idle draw 35% by reworking the supply rails and duty-cycling the sensors between reads.',
+        ],
       },
     ],
   },
