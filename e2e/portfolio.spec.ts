@@ -22,9 +22,9 @@ test.describe('the 15-second screener scan', () => {
   })
 
   test('experience is dated so nobody has to do arithmetic', async ({ page }) => {
-    // Timeline moved to /about/ when the nav went in — the home page is now the
-    // scan, not the whole CV.
-    await page.goto('/about/')
+    // Dates live on /work/ now — the timeline came off /about/ when the work
+    // page grew roles with periods on them.
+    await page.goto('/work/')
     await expect(page.getByText('Feb 2025 – present')).toBeVisible()
     await expect(page.getByText('Jan 2023 – Mar 2023')).toBeVisible()
   })
@@ -96,7 +96,7 @@ test.describe('navigation', () => {
   test('every nav item resolves and marks itself current', async ({ page }) => {
     for (const route of ROUTES) {
       await page.goto(route)
-      const link = page.getByRole('navigation').getByRole('link', {
+      const link = page.getByRole('navigation', { name: 'Primary' }).getByRole('link', {
         name: new RegExp(route.replace(/\//g, ''), 'i'),
       })
       await expect(link, `${route} nav item missing`).toHaveAttribute('aria-current', 'page')
@@ -105,13 +105,13 @@ test.describe('navigation', () => {
 
   test('exactly one nav item is current at a time', async ({ page }) => {
     await page.goto('/gallery/')
-    const current = page.getByRole('navigation').locator('[aria-current="page"]')
+    const current = page.getByRole('navigation', { name: 'Primary' }).locator('[aria-current="page"]')
     await expect(current).toHaveCount(1)
   })
 
   test('a project page keeps Work lit', async ({ page }) => {
     await page.goto('/work/quepay-controller/')
-    const work = page.getByRole('navigation').getByRole('link', { name: /^work$/i })
+    const work = page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: /^work$/i })
     await expect(work).toHaveAttribute('aria-current', 'page')
   })
 })

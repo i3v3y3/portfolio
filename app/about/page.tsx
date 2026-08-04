@@ -1,21 +1,22 @@
 import type { Metadata } from 'next'
 import PageShell from '@/components/PageShell'
 import SectionHeading from '@/components/SectionHeading'
-import Timeline from '@/components/Timeline'
-import { milestones } from '@/content/timeline'
 import { photoBySrc } from '@/lib/photos'
 import { asset } from '@/lib/asset'
 
 export const metadata: Metadata = {
   title: 'About — Ivy Matobori',
   description:
-    'Control and instrumentation engineer in Nairobi. Background, experience timeline, and how to verify any claim on this site.',
+    'Control and instrumentation engineer in Nairobi. Background, and how to verify any claim on this site.',
 }
 
 /**
- * About. The second-visit page: the longer read, the dated timeline, and the
- * sources. "How to verify this" lives here rather than on the home page because
- * it answers a question a reader only forms after they have read the claims.
+ * About: the longer read and the sources.
+ *
+ * The dated timeline moved to /work/, which now carries roles with dates and
+ * bullets — the same chronology in two places is duplication. "How to verify
+ * this" stays here because it answers a question a reader only forms after
+ * they have read the claims, not before.
  */
 
 const VERIFY = [
@@ -88,8 +89,6 @@ export default function AboutPage() {
           )}
         </div>
       </section>
-
-      <Timeline milestones={milestones} />
 
       {bench && (
         <section className="mb-20">
