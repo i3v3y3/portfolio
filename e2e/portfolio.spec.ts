@@ -16,7 +16,9 @@ test.describe('the 15-second screener scan', () => {
   })
 
   test('experience is dated so nobody has to do arithmetic', async ({ page }) => {
-    await page.goto('/')
+    // Timeline moved to /about/ when the nav went in — the home page is now the
+    // scan, not the whole CV.
+    await page.goto('/about/')
     await expect(page.getByText('Feb 2025 – present')).toBeVisible()
     await expect(page.getByText('Jan 2023 – Mar 2023')).toBeVisible()
   })
@@ -42,7 +44,7 @@ test.describe('CV download', () => {
 
 test.describe('verification links', () => {
   test('each one points somewhere absolute and external', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/about/')
     const section = page.locator('section', { hasText: 'How to verify this' })
     const links = section.getByRole('link')
     await expect(links).not.toHaveCount(0)
@@ -60,12 +62,12 @@ test.describe('case studies', () => {
       await page.goto(`/work/${slug}/`)
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
       await expect(page.locator('article')).toBeVisible()
-      // FINDING-007: the back link doubles as site identity. Someone landing
-      // here from a search result must learn whose portfolio this is without
-      // scrolling to the footer.
-      const home = page.locator('a[href="/"]').first()
-      await expect(home).toBeVisible()
-      await expect(home).toContainText('Ivy Matobori')
+      // FINDING-007: the in-article back link doubles as site identity, for
+      // someone landing here from a search result. Scoped to the article
+      // because the nav now also has an a[href="/"] — which is hidden below
+      // `sm`, so it cannot be what satisfies this.
+      const home = page.locator('article, body').locator('a[href="/"]').filter({ hasText: 'Ivy Matobori' })
+      await expect(home.last()).toContainText('Embedded Systems Engineer')
     })
   }
 
@@ -82,15 +84,86 @@ test.describe('case studies', () => {
   })
 })
 
-test.describe('accessibility and layout', () => {
-  test('no horizontal scroll at 375px', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 800 })
-    await page.goto('/')
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth > document.documentElement.clientWidth
-    )
-    expect(overflow, 'page scrolls sideways on mobile').toBe(false)
+test.describe('navigation', () => {
+  const ROUTES = ['/work/', '/gallery/', '/about/', '/contact/']
+
+  test('every nav item resolves and marks itself current', async ({ page }) => {
+    for (const route of ROUTES) {
+      await page.goto(route)
+      const link = page.getByRole('navigation').getByRole('link', {
+        name: new RegExp(route.replace(/\//g, ''), 'i'),
+      })
+      await expect(link, `${route} nav item missing`).toHaveAttribute('aria-current', 'page')
+    }
   })
+
+  test('exactly one nav item is current at a time', async ({ page }) => {
+    await page.goto('/gallery/')
+    const current = page.getByRole('navigation').locator('[aria-current="page"]')
+    await expect(current).toHaveCount(1)
+  })
+
+  test('a project page keeps Work lit', async ({ page }) => {
+    await page.goto('/work/quepay-controller/')
+    const work = page.getByRole('navigation').getByRole('link', { name: /^work$/i })
+    await expect(work).toHaveAttribute('aria-current', 'page')
+  })
+})
+
+test.describe('gallery', () => {
+  test('thumbnails load rather than 404', async ({ page }) => {
+    await page.goto('/gallery/')
+    const broken = await page.locator('img').evaluateAll((imgs) =>
+      imgs.filter((i) => !(i as HTMLImageElement).complete || (i as HTMLImageElement).naturalWidth === 0)
+        .map((i) => (i as HTMLImageElement).src)
+    )
+    expect(broken, `broken images: ${broken.join(', ')}`).toEqual([])
+  })
+
+  test('lightbox opens and returns focus to the thumbnail on close', async ({ page }) => {
+    await page.goto('/gallery/')
+    const first = page.getByRole('button').filter({ hasText: 'Five units assembled' })
+    await first.click()
+
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('dialog')).toBeHidden()
+    // Not the top of the document — on a 24-image page that means tabbing all
+    // the way back to where they were.
+    await expect(first).toBeFocused()
+  })
+
+  test('arrow keys page through and focus follows the image on close', async ({ page }) => {
+    await page.goto('/gallery/')
+    await page.getByRole('button').filter({ hasText: 'Five units assembled' }).click()
+
+    const dialog = page.getByRole('dialog')
+    await expect(dialog).toContainText('1 / ')
+    await page.keyboard.press('ArrowRight')
+    await expect(dialog).toContainText('2 / ')
+    await page.keyboard.press('ArrowLeft')
+    await expect(dialog).toContainText('1 / ')
+
+    // Paging then closing returns to the image you were actually looking at.
+    await page.keyboard.press('ArrowRight')
+    await page.keyboard.press('Escape')
+    await expect(
+      page.getByRole('button').filter({ hasText: 'First power-on' })
+    ).toBeFocused()
+  })
+})
+
+test.describe('accessibility and layout', () => {
+  for (const route of ['/', '/work/', '/gallery/', '/about/', '/contact/']) {
+    test(`no horizontal scroll at 375px on ${route}`, async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 800 })
+      await page.goto(route)
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+      )
+      expect(overflow, `${route} scrolls sideways by ${overflow}px on mobile`).toBeLessThanOrEqual(0)
+    })
+  }
 
   test('skip link is the first thing keyboard focus reaches', async ({ page }) => {
     await page.goto('/')
