@@ -13,7 +13,7 @@ export default function SectionHeading({ id, children }: { id: string; children:
     <div className="mb-8 flex items-center gap-3">
       <h2
         id={id}
-        className="text-[13px] font-medium uppercase tracking-widest text-foreground"
+        className="font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-foreground"
       >
         {children}
       </h2>

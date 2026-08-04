@@ -54,8 +54,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="mx-auto max-w-[46rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-16">
-      <Link href="/" className="mb-10 inline-block text-[14px] text-muted no-underline hover:text-accent">
-        ← Back
+      {/* FINDING-007: trunk test. Someone arriving here from a search result
+          used to see a project title and no indication whose site this is
+          until the footer. The name is now the back link. */}
+      <Link
+        href="/"
+        className="mb-10 inline-flex min-h-[44px] items-center gap-2 text-[14px] text-muted no-underline hover:text-accent"
+      >
+        <span aria-hidden="true">←</span>
+        <span className="font-medium text-foreground">Ivy Matobori</span>
+        <span className="text-muted-dim">· Embedded Systems Engineer</span>
       </Link>
 
       <article>

@@ -43,7 +43,7 @@ export default function Timeline({ milestones }: { milestones: Milestone[] }) {
       <div className="flex items-center gap-3 mb-8">
         <h2
           id="timeline-heading"
-          className="text-[13px] uppercase tracking-widest font-medium text-foreground"
+          className="font-mono text-[12px] uppercase tracking-[0.14em] font-medium text-foreground"
         >
           Experience
         </h2>

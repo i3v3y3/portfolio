@@ -1,10 +1,42 @@
 import type { Metadata } from 'next'
+import { IBM_Plex_Sans, IBM_Plex_Serif, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
 
-// No next/font here on purpose: the design uses system serif + sans, so there
-// is no Google fetch at build time and offline builds work. Font stacks live
-// in globals.css under @theme.
+/**
+ * Type system: IBM Plex, one family in three voices.
+ *
+ *   Serif  → display (h1, section headings)
+ *   Sans   → body
+ *   Mono   → labels, dates, stack pills, anything tabular
+ *
+ * Plex was commissioned by IBM for engineering and technical documentation,
+ * which is the right heritage for a hardware portfolio, and the three cuts are
+ * designed to sit together. Deliberately not Inter/Roboto/Open Sans/Poppins —
+ * those read as template defaults.
+ *
+ * next/font downloads at build time and self-hosts the result, so there is no
+ * third-party request at runtime and no external origin in the CSP. The build
+ * itself does need network access.
+ */
+const plexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex-sans',
+  display: 'swap',
+})
+const plexSerif = IBM_Plex_Serif({
+  subsets: ['latin'],
+  weight: ['500', '600'],
+  variable: '--font-plex-serif',
+  display: 'swap',
+})
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+})
 
 const SITE_URL = 'https://ivymatobori.com' // TODO: confirm domain before deploy
 
@@ -35,7 +67,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${plexSans.variable} ${plexSerif.variable} ${plexMono.variable}`}
+    >
       <body>
         <ThemeProvider>
           <a
