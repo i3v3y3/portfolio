@@ -71,7 +71,7 @@ slug: newer
 description: Newer project.
 stack: [Go]
 date: "2025-01"
-github: https://github.com/JeffMboya/newer
+github: https://github.com/i3v3y3/newer
 demo: null
 featured: true
 ---
