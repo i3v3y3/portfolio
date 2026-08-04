@@ -25,7 +25,7 @@ test.describe('the 15-second screener scan', () => {
     // Dates live on /work/ now — the timeline came off /about/ when the work
     // page grew roles with periods on them.
     await page.goto('/work/')
-    await expect(page.getByText('Feb 2025 – present')).toBeVisible()
+    await expect(page.getByText('Feb 2025 – Feb 2026')).toBeVisible()
     await expect(page.getByText('Jan 2023 – Mar 2023')).toBeVisible()
   })
 
