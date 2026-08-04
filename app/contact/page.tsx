@@ -66,7 +66,8 @@ export default function ContactPage() {
 
       <a
         href={asset('/Ivy_Matobori_Resume.pdf')}
-        download="Ivy_Matobori_Resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-accent px-4 py-2 text-[15px] font-medium text-accent-text no-underline transition-opacity hover:opacity-90"
       >
         <svg
@@ -77,9 +78,9 @@ export default function ContactPage() {
           strokeWidth="2"
           aria-hidden="true"
         >
-          <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+          <path d="M14 3h7v7M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
         </svg>
-        Download CV
+        View CV
       </a>
     </PageShell>
   )

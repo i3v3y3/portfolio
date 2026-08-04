@@ -49,9 +49,14 @@ export default function Hero() {
             See my work
             <span aria-hidden="true">→</span>
           </Link>
+          {/* Opens in a tab rather than saving straight to disk, so a reader can
+              read it first and use the viewer's own download button if they want
+              a copy. No `download` attribute — that would force the save and
+              skip the preview entirely. Labelled "View" to match what it does. */}
           <a
             href={asset('/Ivy_Matobori_Resume.pdf')}
-            download="Ivy_Matobori_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-[15px] text-foreground no-underline transition-colors hover:border-accent hover:text-accent"
           >
             <svg
@@ -62,18 +67,12 @@ export default function Hero() {
               strokeWidth="2"
               aria-hidden="true"
             >
-              <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+              <path d="M14 3h7v7M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
             </svg>
-            Download CV
+            View CV
           </a>
         </div>
 
-        <div className="mt-1 flex flex-wrap items-center gap-2.5">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-[12px] text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-            Open to instrumentation &amp; control roles
-          </span>
-        </div>
       </div>
 
       <div className="w-full overflow-hidden rounded-xl border border-border">

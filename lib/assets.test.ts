@@ -27,15 +27,15 @@ describe('public assets', () => {
     expect(pdfs.sort()).toEqual(['Ivy_Matobori_Resume.pdf'])
   })
 
-  it('the CV button actually downloads rather than opening inline', () => {
-    // GitHub Pages sends application/pdf with no Content-Disposition, so
-    // without an explicit download attribute the browser renders the file in a
-    // tab and a button labelled "Download CV" does not download anything.
-    const hero = fs.readFileSync(
-      path.join(process.cwd(), 'components', 'Hero.tsx'),
-      'utf8',
-    )
-    expect(hero, 'CV link lost its download attribute').toMatch(
+  it('the CV opens in a new tab for reading, not a forced save', () => {
+    // Deliberately no `download` attribute: a reader should be able to skim the
+    // CV in the browser's own viewer and save it from there if they want it.
+    // The attribute would bypass the preview and drop a file on their disk.
+    const hero = fs.readFileSync(path.join(process.cwd(), 'components', 'Hero.tsx'), 'utf8')
+    const cvLink = hero.slice(hero.indexOf('Ivy_Matobori_Resume.pdf'))
+    expect(cvLink, 'CV link should open in a new tab').toMatch(/target="_blank"/)
+    expect(cvLink, 'a new-tab link needs rel="noopener"').toMatch(/rel="noopener noreferrer"/)
+    expect(hero, 'the download attribute forces a save and skips the preview').not.toMatch(
       /download="Ivy_Matobori_Resume\.pdf"/,
     )
   })
