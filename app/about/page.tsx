@@ -7,11 +7,19 @@ import { asset } from '@/lib/asset'
 export const metadata: Metadata = {
   title: 'About — Ivy Matobori',
   description:
-    'Control and instrumentation engineer in Nairobi. Background, and how to verify any claim on this site.',
+    'Control and instrumentation engineer in Nairobi: board design, firmware, calibration and production. Background, and how to verify any claim on this site.',
 }
 
 /**
  * About: the longer read and the sources.
+ *
+ * SOURCING OF THE PROSE. The opening and the "art" sentence are Ivy's own
+ * words, from her LinkedIn. The middle three paragraphs describe work the rest
+ * of this site documents — the boards in the gallery, the batches and reflow,
+ * the contract-manufacturing visit, the three case studies — rather than
+ * biography nobody can check. An earlier draft had her going out to site "at
+ * two in the morning with nobody watching" and reading "fairly
+ * indiscriminately"; both were invented, and both are gone.
  *
  * The dated timeline moved to /work/, which now carries roles with dates and
  * bullets — the same chronology in two places is duplication. "How to verify
@@ -58,15 +66,29 @@ export default function AboutPage() {
               because everything downstream is only as good as the number you started with.
             </p>
             <p>
-              That has meant writing calibration procedures and then going out to site when a
-              sensor drifts. It has meant building the fault detection and interlocks that
-              decide what a machine does when something goes wrong at two in the morning with
-              nobody watching.
+              That starts at the schematic. I design the boards, two to six layers in Altium
+              and KiCad, mixed-signal, with the power architecture and protection that keeps a
+              reading clean sitting next to a cellular modem. I write the firmware that runs on
+              them in C and C++, on FreeRTOS and bare metal, and I take them through bring-up,
+              calibration and the test procedures that decide whether a unit ships.
+            </p>
+            <p>
+              I stay with them after that. Batches through reflow, first-article inspection,
+              the fault detection and interlocks that decide what a machine does unattended,
+              and the schematics and panel layouts an installer works from. I have followed a
+              design onto a contract manufacturing floor and out to site when the readings
+              stopped making sense.
+            </p>
+            <p>
+              The range is the part I care about. A payment controller on a water ATM, a level
+              sensor on a tank, and a power distribution board for a satellite are the same
+              problem in different clothes: measure something accurately, decide what to do
+              about it, and keep working when nobody is watching.
             </p>
             <p>
               I think of embedded systems as an art that takes in electronic design, mechanical
-              design and software design all at once. Right now I am learning embedded Linux.
-              Away from the bench I read fairly indiscriminately, and I take recommendations.
+              design and software design all at once. Right now I am extending that on the
+              software side, with embedded Linux.
             </p>
           </div>
 
