@@ -1,0 +1,126 @@
+{
+  "importedAt": "2026-08-04T09:33:42.284Z",
+  "count": 24,
+  "files": [
+    {
+      "src": "/images/quepay/production-units.webp",
+      "kb": 172,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/quepay/unit-power-on.webp",
+      "kb": 110,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/quepay/board-bare.webp",
+      "kb": 528,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/quepay/board-populated.webp",
+      "kb": 370,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/quepay/board-power-stage.webp",
+      "kb": 347,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/quepay/hmi-calibration.webp",
+      "kb": 14,
+      "dims": "759x505"
+    },
+    {
+      "src": "/images/quepay/hmi-tap-control.webp",
+      "kb": 11,
+      "dims": "769x514"
+    },
+    {
+      "src": "/images/quepay/hmi-payment.webp",
+      "kb": 12,
+      "dims": "756x500"
+    },
+    {
+      "src": "/images/quepay/hmi-pin.webp",
+      "kb": 8,
+      "dims": "757x499"
+    },
+    {
+      "src": "/images/quepay/relay-stage-3d.webp",
+      "kb": 32,
+      "dims": "1243x699"
+    },
+    {
+      "src": "/images/quepay/bench-rig.webp",
+      "kb": 299,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/probing-01.webp",
+      "kb": 232,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/bench/probing-02.webp",
+      "kb": 224,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/bench/probing-03.webp",
+      "kb": 236,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/bench/reflow.webp",
+      "kb": 242,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/veno/io-board.webp",
+      "kb": 338,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/veno/control-panel.webp",
+      "kb": 159,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/veno/field-device.webp",
+      "kb": 404,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/veno/compact-board.webp",
+      "kb": 701,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/power/render.webp",
+      "kb": 44,
+      "dims": "1280x720"
+    },
+    {
+      "src": "/images/power/modelling.webp",
+      "kb": 69,
+      "dims": "1280x720"
+    },
+    {
+      "src": "/images/personal/intruder-3d.webp",
+      "kb": 46,
+      "dims": "1069x941"
+    },
+    {
+      "src": "/images/about/on-site.webp",
+      "kb": 86,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/about/workbench.webp",
+      "kb": 257,
+      "dims": "1200x1600"
+    }
+  ]
+}
