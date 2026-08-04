@@ -20,17 +20,21 @@ const ITEMS = [
  * as her site rather than a copy of theirs, and costs nothing because the
  * design system already had the idiom.
  *
- * ACTIVE STATE. A leading accent dot, echoing the status dot in the hero. An
- * underline would collide with link hover-underline, and a pill would be the
- * fourth rounded-rect shape on a page that already has cards, tags and buttons.
- * aria-current carries it for screen readers; the dot is decorative.
+ * ACTIVE STATE. Three cues: accent colour, an underline, and a heavier weight.
+ * Colour alone fails WCAG 1.4.1 for anyone who cannot distinguish the accent
+ * from the muted grey, so at least one non-colour cue has to survive at every
+ * width. An earlier version used a leading dot, which cost ~12px per item and
+ * therefore had to be hidden below `sm` — leaving phones with colour only.
+ * The underline is a border on an inner span, so it costs no horizontal space
+ * and works at 320px. No collision with hover, which changes colour only.
+ *
+ * Not animated. This is a static export: every nav click is a fresh document,
+ * so there is no state to transition between and a slide would just be a flash.
  *
  * NO HAMBURGER. Four short words fit inline even at 320px, so hiding them
- * behind a tap would be worse than showing them. Making them fit does cost two
- * things below `sm`: the wordmark is hidden (every page has an h1 and the
- * footer carries her name, so identity is not lost) and the active dots go,
- * leaving colour plus aria-current to mark the current page. Measured at 375px
- * the full row overflowed by 70px — that is where these two came from.
+ * behind a tap would be worse than showing them. Fitting them does cost the
+ * wordmark below `sm` — every page has an h1 and the footer carries her name,
+ * so identity is not lost. Measured at 375px the full row overflowed by 70px.
  *
  * MATCHING. Every route here is a directory (trailingSlash: true), so a project
  * page at /work/quepay-controller/ must light up "Work". Hence startsWith
@@ -64,17 +68,19 @@ export default function Nav() {
                 <Link
                   href={item.href}
                   aria-current={active ? 'page' : undefined}
-                  className={`inline-flex min-h-[44px] items-center gap-1.5 px-2 font-mono text-[11px] uppercase tracking-[0.08em] no-underline transition-colors sm:px-2 sm:text-[12px] sm:tracking-[0.14em] ${
-                    active ? 'text-accent' : 'text-muted hover:text-foreground'
+                  className={`inline-flex min-h-[44px] items-center px-2 font-mono text-[11px] uppercase tracking-[0.08em] no-underline transition-colors sm:text-[12px] sm:tracking-[0.14em] ${
+                    active ? 'font-medium text-accent' : 'text-muted hover:text-foreground'
                   }`}
                 >
+                  {/* Underline on an inner span so it hugs the text rather than
+                      sitting at the floor of the 44px touch target. */}
                   <span
-                    aria-hidden="true"
-                    className={`hidden h-1.5 w-1.5 shrink-0 rounded-full transition-colors sm:block ${
-                      active ? 'bg-accent' : 'bg-transparent'
+                    className={`border-b-2 pb-0.5 transition-colors ${
+                      active ? 'border-accent' : 'border-transparent'
                     }`}
-                  />
-                  {item.label}
+                  >
+                    {item.label}
+                  </span>
                 </Link>
               </li>
             )
