@@ -31,8 +31,17 @@ test.describe('the 15-second screener scan', () => {
 
   test('capability keywords appear before the project cards', async ({ page }) => {
     await page.goto('/')
-    const areas = await page.getByRole('heading', { name: 'What I work on' }).boundingBox()
-    const work = await page.getByRole('heading', { name: 'Selected work' }).boundingBox()
+    // Wait for both before measuring — boundingBox() on a not-yet-laid-out
+    // element returns null, which made this flake under parallel runs.
+    const areasHeading = page.getByRole('heading', { name: 'What I work on' })
+    const workHeading = page.getByRole('heading', { name: 'Selected work' })
+    await expect(areasHeading).toBeVisible()
+    await expect(workHeading).toBeVisible()
+
+    const areas = await areasHeading.boundingBox()
+    const work = await workHeading.boundingBox()
+    expect(areas).not.toBeNull()
+    expect(work).not.toBeNull()
     expect(areas!.y).toBeLessThan(work!.y)
   })
 })
@@ -113,6 +122,51 @@ test.describe('navigation', () => {
     await page.goto('/work/quepay-controller/')
     const work = page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: /^work$/i })
     await expect(work).toHaveAttribute('aria-current', 'page')
+  })
+})
+
+test.describe('theme', () => {
+  test('all three modes apply, and System stays reachable', async ({ page }) => {
+    await page.goto('/')
+    const group = page.getByRole('group', { name: 'Theme' })
+
+    await group.getByRole('button', { name: 'Dark' }).click()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+
+    await group.getByRole('button', { name: 'Light' }).click()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+
+    // The point of the third button: without it, picking a theme once means
+    // never following the OS again.
+    await group.getByRole('button', { name: 'System' }).click()
+    await expect(group.getByRole('button', { name: 'System' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    )
+  })
+
+  test('the choice survives navigation', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('group', { name: 'Theme' }).getByRole('button', { name: 'Dark' }).click()
+    await page.goto('/work/')
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  })
+
+  test('narrow screens still reach every mode from one button', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 })
+    await page.goto('/')
+    // The segmented group is display:none here, so only the cycling button is
+    // in the tree — three clicks must return to where it started.
+    await expect(page.getByRole('group', { name: 'Theme' })).toBeHidden()
+    const cycle = page.locator('header button[title^="Theme"]')
+    await expect(cycle).toBeVisible()
+
+    const seen = new Set<string>()
+    for (let i = 0; i < 3; i++) {
+      await cycle.click()
+      seen.add((await page.locator('html').getAttribute('data-theme')) ?? '')
+    }
+    expect(seen.size, 'cycling should reach more than one theme').toBeGreaterThan(1)
   })
 })
 

@@ -90,6 +90,15 @@ export default function Nav() {
           })}
         </ul>
 
+        {/* A rule rather than a literal "|" glyph: a pipe inherits the font's
+            own height and baseline, so it sits low and short next to icons.
+            Hidden below sm, where the row is tight enough that the gap alone
+            separates them. */}
+        <span
+          aria-hidden="true"
+          className="hidden h-5 w-px shrink-0 bg-border sm:block"
+        />
+
         <ThemeToggle />
       </nav>
     </header>

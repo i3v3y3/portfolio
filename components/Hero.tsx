@@ -19,13 +19,14 @@ export default function Hero() {
   return (
     <header className="mb-20 grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] md:gap-12">
       <div className="flex flex-col gap-5">
-        {/* Her name leads the eyebrow, which the reference does not do. It has
-            to here: the h1 is now a thesis rather than an introduction, and the
-            nav wordmark is hidden below `sm`, so without this the only place a
-            phone shows her name is halfway through the paragraph below. */}
+        {/* The name appears here only below `sm`. The h1 is a thesis rather
+            than an introduction, so on a phone — where the nav wordmark is
+            hidden — this would otherwise be the one place her surname never
+            appears above the fold. From `sm` up the bold wordmark sits directly
+            above this line and saying it twice in 60px is just repetition. */}
         <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-dim">
-          <span className="text-foreground">Ivy Matobori</span> · Instrumentation &amp; Control
-          Engineer · Nairobi, Kenya
+          <span className="text-foreground sm:hidden">Ivy Matobori · </span>
+          Instrumentation &amp; Control Engineer · Nairobi, Kenya
         </p>
 
         <h1 className="text-[clamp(1.9rem,1.2rem+3.1vw,2.9rem)] tracking-[-0.015em]">
