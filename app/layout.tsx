@@ -93,6 +93,26 @@ export const metadata: Metadata = {
     description: 'Hardware and firmware for machines that have to work unattended.',
     images: [`${SITE_URL}og.jpg`],
   },
+  /**
+   * Icons are her portrait, cropped to the face by scripts/make-favicon.mjs.
+   *
+   * Paths carry BASE_PATH by hand. Next applies basePath to the file-convention
+   * icons (app/icon.png and friends) but not to ones declared here, and a
+   * favicon quietly 404ing is the sort of thing nobody notices for months.
+   *
+   * 16px is included but is honestly a smudge — a face cannot survive that few
+   * pixels. It reads as a colour signature rather than a portrait, which is
+   * still better than a blank page glyph. 32 and up are legible.
+   */
+  icons: {
+    icon: [
+      { url: `${BASE_PATH}/favicon-32.png`, sizes: '32x32', type: 'image/png' },
+      { url: `${BASE_PATH}/favicon-16.png`, sizes: '16x16', type: 'image/png' },
+      { url: `${BASE_PATH}/icon-192.png`, sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [{ url: `${BASE_PATH}/apple-touch-icon.png`, sizes: '180x180' }],
+  },
+  manifest: `${BASE_PATH}/site.webmanifest`,
   robots: { index: true, follow: true },
 }
 
