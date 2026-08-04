@@ -108,7 +108,7 @@ export const experience: ExperienceGroup[] = [
         location: 'Kenya',
         period: '2019 – 2024',
         points: [
-          'Five-year programme in measurement, control systems and industrial instrumentation — the discipline the degree is named for.',
+          'Four-year programme in measurement, control systems and industrial instrumentation — the discipline the degree is named for.',
         ],
       },
     ],

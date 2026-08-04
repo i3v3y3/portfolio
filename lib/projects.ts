@@ -16,6 +16,12 @@ export interface ProjectMeta {
   /** Caption for the empty-cover slot, e.g. "Board photo — top and bottom". */
   coverCaption?: string
   result?: string
+  /**
+   * How the cover sits in its slot. Photographs crop happily, so "cover" is
+   * the default; a diagram does not — the card slot is far wider than it is
+   * tall, and a centre crop landed squarely in the diagram's own whitespace.
+   */
+  coverFit?: 'cover' | 'contain'
   /** Spec table rows, `[label, value]`. Rendered under the cover. */
   specs?: [string, string][]
   /** System diagram, rendered before the photographs. */
@@ -57,6 +63,7 @@ const ProjectMetaSchema = z.object({
   featured: z.boolean(),
   cover: z.string().nullable().default(null),
   coverCaption: z.string().optional(),
+  coverFit: z.enum(['cover', 'contain']).optional(),
   result: z.string().optional(),
   specs: z.array(z.tuple([z.string(), z.string()])).optional(),
   architecture: z

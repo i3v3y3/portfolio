@@ -54,6 +54,7 @@ describe('photo manifest', () => {
     const { default: sharp } = await import('sharp')
     const missing: string[] = []
     for (const p of photos) {
+      if (p.generated || !p.src.endsWith('.webp')) continue
       const full = path.join(pub, p.src.replace(/^\//, ''))
       const { width = 0 } = await sharp(full).metadata()
       // The importer skips a width when the source is already narrower.

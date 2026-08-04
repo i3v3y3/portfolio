@@ -27,18 +27,25 @@ export function asset(path: string): string {
 const VARIANTS = [400, 800]
 
 /**
- * srcset for a photo in the manifest.
+ * srcset for an image, given its real pixel width.
  *
- * The importer writes foo-400.webp and foo-800.webp next to foo.webp, so the
- * browser can take a 400px file for a 200px tile instead of the 1600px one.
- * That was most of a 2.4 MB home page.
+ * The width matters. An earlier version advertised 400w and 800w for every
+ * image and labelled the original 1600w — but the importer skips a variant
+ * when the source is already narrower, so an 800px photo got a srcset pointing
+ * at a -800 file that was never written. A 404 inside srcset does not fall back
+ * to src; the browser renders nothing. Pass the width from the manifest and
+ * only real files are offered.
  *
- * Pair it with a `sizes` attribute describing the slot — without one the
- * browser assumes 100vw and picks the largest file, which undoes the point.
- * Variants are only written when the source is wider, so a small render may
- * have none; the full-size entry at the end is always a valid fallback.
+ * Returns undefined when there is nothing useful to offer — a generated PNG, or
+ * an image already smaller than the narrowest variant — and the caller should
+ * then omit the attribute rather than emit an empty one.
  */
-export function srcSet(path: string): string {
-  return [...VARIANTS.map((w) => `${asset(path.replace(/\.webp$/, `-${w}.webp`))} ${w}w`),
-    `${asset(path)} 1600w`].join(', ')
+export function srcSet(path: string, width?: number): string | undefined {
+  if (!path.endsWith('.webp') || !width) return undefined
+  const available = VARIANTS.filter((w) => w < width)
+  if (available.length === 0) return undefined
+  return [
+    ...available.map((w) => `${asset(path.replace(/\.webp$/, `-${w}.webp`))} ${w}w`),
+    `${asset(path)} ${width}w`,
+  ].join(', ')
 }

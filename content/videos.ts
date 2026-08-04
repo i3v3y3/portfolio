@@ -36,10 +36,27 @@ export const videos: VideoEmbed[] = [
     postedBy: { name: 'Veno Autobotics', href: 'https://ke.linkedin.com/company/venoiot' },
   },
   {
+    id: 'robot-arm',
+    urn: '7201563779732500484',
+    title: 'Teaching robotics to STEM educators',
+    blurb:
+      'A servo robot arm built from readily available kits, running under microcontroller control — used to train TVET instructors for a beginners robotics competition.',
+    postedBy: { name: 'Veno Autobotics', href: 'https://ke.linkedin.com/company/venoiot' },
+  },
+  {
+    id: 'capability',
+    urn: '7340675238365384704',
+    title: 'In-house PCB, firmware and connectivity',
+    blurb:
+      "Veno's own reel on taking an IoT product from concept to deployment: board design, firmware, and the radio choice, all in house.",
+    postedBy: { name: 'Veno Autobotics', href: 'https://ke.linkedin.com/company/venoiot' },
+  },
+  {
     id: 'week-end',
     urn: '7400129004579598336',
-    title: 'End of the week in the lab',
-    blurb: 'A look around the workshop.',
+    title: 'Firmware upload and final testing',
+    blurb:
+      'The last step before a unit ships: assembled boards get their firmware and go through final test.',
     postedBy: { name: 'Veno Autobotics', href: 'https://ke.linkedin.com/company/venoiot' },
   },
 ]

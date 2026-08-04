@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { ProjectMeta } from '@/lib/projects'
 import { formatDate } from '@/lib/utils'
 import { asset, srcSet } from '@/lib/asset'
+import { photoBySrc } from '@/lib/photos'
 
 /**
  * Project card.
@@ -29,12 +30,16 @@ export default function ProjectCard({ meta }: { meta: ProjectMeta }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={asset(meta.cover)}
-            srcSet={srcSet(meta.cover)}
+            srcSet={srcSet(meta.cover, photoBySrc(meta.cover)?.width)}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
             alt={`${meta.title} — hardware`}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className={`absolute inset-0 h-full w-full transition-transform duration-300 ${
+              meta.coverFit === 'contain'
+                ? 'object-contain p-3'
+                : 'object-cover group-hover:scale-105'
+            }`}
           />
         </div>
       ) : (

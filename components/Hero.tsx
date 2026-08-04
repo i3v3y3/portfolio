@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { asset, srcSet } from '@/lib/asset'
+import { photoBySrc } from '@/lib/photos'
 
 /**
  * Hero.
@@ -80,7 +81,7 @@ export default function Hero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset(PORTRAIT)}
-          srcSet={srcSet(PORTRAIT)}
+          srcSet={srcSet(PORTRAIT, photoBySrc(PORTRAIT)?.width)}
           sizes="(max-width: 768px) 100vw, 340px"
           alt="Ivy Matobori on site in a high-visibility vest"
           width={1200}

@@ -49,6 +49,14 @@ const PhotoSchema = z.object({
    * photo of people means everyone is beheaded. "top" keeps the faces.
    */
   focus: z.enum(['center', 'top']).default('center'),
+  /**
+   * Produced by a script rather than imported from a photograph. The importer
+   * skips these, and they have no srcset variants because they are already
+   * small vector-derived PNGs.
+   */
+  generated: z.boolean().default(false),
+  /** Real pixel width, written by the importer. Drives srcset. */
+  width: z.number().optional(),
 })
 
 export type Cluster = z.infer<typeof ClusterSchema>
@@ -98,4 +106,49 @@ export function photosForProject(slug: string): Photo[] {
 /** Look one up by src. Used where a page wants a specific known image. */
 export function photoBySrc(src: string): Photo | undefined {
   return photos.find((p) => p.src === src)
+}
+
+/**
+ * Pairs for the home page bench strip: four tiles, each with a hover partner.
+ *
+ * Stratified by cluster rather than picked from one flat pool. A flat random
+ * draw kept returning four dark boards on the same desk — different files that
+ * read as one image repeated, which is the exact problem the hand-picked list
+ * was solving. One cluster per tile guarantees four different subjects while
+ * still being random within each.
+ *
+ * Selection happens at build time. This is a static export, so the set is fixed
+ * for a given deploy — random across rebuilds, stable for every visitor, and no
+ * hydration mismatch because nothing re-rolls on the client.
+ *
+ * Anything already used as a project card cover is excluded, as are screen
+ * captures and generated diagrams: they letterbox badly in
+ * a square tile, and a UI screenshot cross-fading into a photo looks like a
+ * rendering bug rather than an effect.
+ */
+export function benchPairs(exclude: string[] = [], count = 4): [Photo, Photo][] {
+  const pick = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]
+
+  // `exclude` is the project card covers. Without it the strip can draw an
+  // image that is already on screen 200px above it, which reads as a bug
+  // rather than a coincidence.
+  const skip = new Set(exclude)
+  const usable = photos.filter(
+    (p) =>
+      p.fit !== 'contain' && !p.generated && p.cluster !== 'about' && !skip.has(p.src)
+  )
+
+  // Clusters holding at least a pair, most photographs first, so a thin cluster
+  // never edges out a rich one when there are more clusters than tiles.
+  const byCluster = clusters
+    .map((c) => usable.filter((p) => p.cluster === c.id))
+    .filter((group) => group.length >= 2)
+    .sort((a, b) => b.length - a.length)
+    .slice(0, count)
+
+  return byCluster.map((group) => {
+    const front = pick(group)
+    const back = pick(group.filter((p) => p.src !== front.src))
+    return [front, back] as [Photo, Photo]
+  })
 }

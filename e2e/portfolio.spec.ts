@@ -147,6 +147,37 @@ test.describe('home page imagery', () => {
   })
 })
 
+test.describe('bench strip', () => {
+  test('each tile cross-fades to a second image on hover', async ({ page }) => {
+    await page.goto('/')
+    const section = page.locator('section[aria-labelledby="bench-heading"]')
+    // li a, not a.first() — the section header carries an "All photos" link.
+    const tile = section.locator('li a').first()
+    await tile.scrollIntoViewIfNeeded()
+
+    const rest = await tile.locator('img').evaluateAll((i) =>
+      i.map((x) => getComputedStyle(x).opacity)
+    )
+    expect(rest, 'front visible, back hidden at rest').toEqual(['1', '0'])
+
+    await tile.hover()
+    await expect
+      .poll(async () =>
+        tile.locator('img').evaluateAll((i) => i.map((x) => getComputedStyle(x).opacity))
+      )
+      .toEqual(['0', '1'])
+  })
+
+  test('shows eight distinct photographs', async ({ page }) => {
+    await page.goto('/')
+    const srcs = await page
+      .locator('section[aria-labelledby="bench-heading"] img')
+      .evaluateAll((i) => i.map((x) => x.getAttribute('src') ?? ''))
+    expect(srcs.length, 'four tiles, two images each').toBe(8)
+    expect(new Set(srcs).size, 'a repeat means the cluster stratification broke').toBe(8)
+  })
+})
+
 test.describe('video embeds', () => {
   test('nothing reaches LinkedIn until play is pressed', async ({ page }) => {
     const thirdParty: string[] = []

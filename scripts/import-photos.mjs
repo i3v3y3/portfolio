@@ -105,6 +105,9 @@ const missing = []
 const report = []
 
 for (const photo of manifest.photos) {
+  // Built by another script and committed; there is no original to import.
+  if (photo.generated) continue
+
   const origin = available.get(photo.source.toLowerCase())
   if (!origin) {
     missing.push(photo.source)
@@ -136,6 +139,13 @@ for (const photo of manifest.photos) {
 
   if (isHeic) await rm(input, { force: true })
 
+  // Record what was actually produced. srcSet() needs the real width: it used
+  // to advertise 400w and 800w for every image and claim the full size was
+  // 1600w, but the importer skips a width when the source is narrower — so a
+  // 800px photo got a srcset pointing at a -800 file that was never written.
+  // A 404 inside srcset does not fall back; the browser just shows nothing.
+  photo.width = info.width
+
   written++
   report.push({
     src: photo.src,
@@ -165,6 +175,12 @@ if (missing.length) {
   for (const m of missing) console.error(`  - ${m}`)
 }
 if (leaked > 0 || missing.length) process.exit(1)
+
+// Write the widths back so the site can build an accurate srcset.
+await writeFile(
+  path.join(root, 'content', 'photos.json'),
+  JSON.stringify(manifest, null, 2) + '\n'
+)
 
 await writeFile(
   path.join(root, 'public', 'images', '.import-report.json'),

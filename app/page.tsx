@@ -4,8 +4,9 @@ import ProjectCard from '@/components/ProjectCard'
 import SectionHeading from '@/components/SectionHeading'
 import Footer from '@/components/Footer'
 import { getAllProjects } from '@/lib/projects'
-import { photos } from '@/lib/photos'
+import { benchPairs } from '@/lib/photos'
 import { asset, srcSet } from '@/lib/asset'
+import BenchStrip from '@/components/BenchStrip'
 import VideoEmbeds from '@/components/VideoEmbeds'
 import { videos } from '@/content/videos'
 
@@ -16,7 +17,7 @@ import { videos } from '@/content/videos'
  *   What I work on  four capability areas
  *   Selected work   three cards, then through to /work/
  *   From the bench  four photos, then through to /gallery/
- *   See it working  the product demo clip
+ *   See it working  two clips: the product working, and one being built
  *   Get in touch    the three channels
  *
  * Shape follows the reference portfolio the client chose. Two deliberate
@@ -66,29 +67,12 @@ const CONTACT = [
 
 export default function Home() {
   const featured = getAllProjects().slice(0, 3)
-  /**
-   * Hand-picked, not the first four of anything.
-   *
-   * Taking a slice gave four dark boards on the same wooden desk — different
-   * files, but at thumbnail size they read as one image repeated. These four
-   * are deliberately different subjects: a workspace, a batch, a wired-up
-   * integration, and a solenoid. Curation, so it lives here rather than in the
-   * manifest.
-   *
-   * The filter is a guard, not a lookup: if a src here is renamed in
-   * photos.json this quietly shows fewer tiles instead of crashing the build,
-   * and lib/photos.test.ts fails loudly to say why.
-   */
-  const STRIP = [
-    '/images/bench/workspace.webp',
-    '/images/bench/batch.webp',
-    '/images/bench/relay-bank.webp',
-    '/images/quepay/solenoid.webp',
-  ]
-  const bench = STRIP.map((src) => photos.find((p) => p.src === src)).filter(
-    (p): p is NonNullable<typeof p> => p !== undefined
-  )
-  const demo = videos.find((v) => v.id === 'mpesa-purchase')
+  // Exclude whatever the cards are already showing, so the strip never repeats
+  // an image sitting a couple of hundred pixels above it.
+  const bench = benchPairs(featured.map((p) => p.cover).filter((c): c is string => !!c))
+  const featuredVideos = ['mpesa-purchase', 'assembly']
+    .map((id) => videos.find((v) => v.id === id))
+    .filter((v): v is NonNullable<typeof v> => v !== undefined)
 
   return (
     <div className="mx-auto max-w-[58rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
@@ -164,37 +148,11 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Both classes spelled out so Tailwind emits them — it scans source
-                text, so a template-built class name would not survive. */}
-            <ul
-              className={`grid grid-cols-2 gap-3 ${
-                bench.length >= 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3'
-              }`}
-            >
-              {bench.map((photo) => (
-                <li key={photo.src}>
-                  <Link
-                    href="/gallery/"
-                    className="group block overflow-hidden rounded-lg border border-border bg-surface"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={asset(photo.src)}
-                      srcSet={srcSet(photo.src)}
-                      sizes="(max-width: 640px) 50vw, 220px"
-                      alt={photo.alt}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <BenchStrip pairs={bench} />
           </section>
         )}
 
-        {demo && (
+        {featuredVideos.length > 0 && (
           <section className="mb-20" aria-labelledby="demo-heading">
             <div className="mb-8 flex items-baseline justify-between gap-4">
               <h2
@@ -210,19 +168,16 @@ export default function Home() {
                 More video
               </Link>
             </div>
-            {/* Only the product demo here. It is the one clip where a reader
-                sees the thing actually work rather than sitting on a bench. */}
-            <div className="max-w-[38rem]">
-              <VideoEmbeds videos={[demo]} />
-            </div>
+            <VideoEmbeds videos={featuredVideos} />
           </section>
         )}
 
         <section className="mb-4" aria-labelledby="contact-heading">
           <SectionHeading id="contact-heading">Get in touch</SectionHeading>
           <p className="mb-5 max-w-[36rem] text-[15px] leading-relaxed text-muted">
-            Open to instrumentation and control roles, on site in Nairobi or remote. Happy to
-            talk through any of the work above in more detail than the write-ups allow.
+            I&apos;m open to instrumentation and control engineering roles — on-site in Nairobi
+            or remote. If you&apos;d like to discuss any of the projects above in more detail,
+            I&apos;d be happy to talk through the design decisions, challenges, and results.
           </p>
           <ul className="flex flex-wrap gap-2.5">
             {CONTACT.map((c) => (

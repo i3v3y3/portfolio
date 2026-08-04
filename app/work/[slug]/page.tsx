@@ -95,7 +95,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <img
               src={asset(meta.cover)}
               alt={meta.title}
-              className="aspect-[16/10] w-full object-cover"
+              className={`aspect-[16/10] w-full ${
+                meta.coverFit === 'contain' ? 'object-contain' : 'object-cover'
+              }`}
             />
           </div>
         )}
@@ -153,7 +155,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={asset(photo.src)}
-                      srcSet={srcSet(photo.src)}
+                      srcSet={srcSet(photo.src, photo.width)}
                       sizes="(max-width: 640px) 100vw, 350px"
                       alt={photo.alt}
                       loading="lazy"

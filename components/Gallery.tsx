@@ -128,7 +128,7 @@ export default function Gallery({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={asset(photo.src)}
-                        srcSet={srcSet(photo.src)}
+                        srcSet={srcSet(photo.src, photo.width)}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
                         alt={photo.alt}
                         loading="lazy"

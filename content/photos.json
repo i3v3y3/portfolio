@@ -56,7 +56,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "Five assembled ATM units laid out on a bench, each with a numeric keypad and an LCD",
-      "caption": "Five units assembled and staged"
+      "caption": "Five units assembled and staged",
+      "width": 1600
     },
     {
       "src": "/images/quepay/in-hand.webp",
@@ -64,7 +65,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "A finished unit held in one hand, its colour screen showing a 10.0 balance and the keypad lit",
-      "caption": "Finished unit, showing a balance"
+      "caption": "Finished unit, showing a balance",
+      "width": 800
     },
     {
       "src": "/images/quepay/enclosure.webp",
@@ -72,7 +74,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "An assembled unit standing upright in its blue and white enclosure on a desk",
-      "caption": "Assembled in its enclosure"
+      "caption": "Assembled in its enclosure",
+      "width": 800
     },
     {
       "src": "/images/quepay/solenoid.webp",
@@ -80,7 +83,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "A control panel wired to a brass solenoid valve on the bench, with hand tools alongside",
-      "caption": "Driving a solenoid valve — the actuator end of a dispense"
+      "caption": "Driving a solenoid valve — the actuator end of a dispense",
+      "width": 800
     },
     {
       "src": "/images/quepay/unit-power-on.webp",
@@ -88,7 +92,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "An assembled unit held in one hand, its LCD reading Checking Connections, Please wait",
-      "caption": "First power-on, checking its network connection"
+      "caption": "First power-on, checking its network connection",
+      "width": 1200
     },
     {
       "src": "/images/quepay/board-bare.webp",
@@ -96,7 +101,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "An unpopulated black controller PCB on a wooden surface",
-      "caption": "Bare board back from fab"
+      "caption": "Bare board back from fab",
+      "width": 1600
     },
     {
       "src": "/images/quepay/board-populated.webp",
@@ -104,7 +110,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "The same controller board fully populated, with a shielded radio module fitted",
-      "caption": "Populated, radio module fitted"
+      "caption": "Populated, radio module fitted",
+      "width": 1200
     },
     {
       "src": "/images/quepay/board-power-stage.webp",
@@ -112,7 +119,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "Controller board showing a toroidal inductor and the power regulation section",
-      "caption": "Power stage: toroidal inductor and regulation"
+      "caption": "Power stage: toroidal inductor and regulation",
+      "width": 1200
     },
     {
       "src": "/images/quepay/hmi-calibration.webp",
@@ -121,7 +129,8 @@
       "project": "quepay-controller",
       "alt": "Calibration screen showing 500 litres against 12000 pulses, with pulses per litre reading 400, and Stop and Reset buttons",
       "caption": "Flow calibration: 500 L against 12 000 pulses, 400 pulses per litre",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 759
     },
     {
       "src": "/images/quepay/hmi-tap-control.webp",
@@ -130,7 +139,8 @@
       "project": "quepay-controller",
       "alt": "Operator screen showing a dial for Tap 2 at 25 percent with state ON",
       "caption": "Valve control: tap 2 open at 25%",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 769
     },
     {
       "src": "/images/quepay/hmi-payment.webp",
@@ -139,7 +149,8 @@
       "project": "quepay-controller",
       "alt": "Screen offering three payment methods: NFC, M-Pesa and QR code",
       "caption": "Payment method selection",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 756
     },
     {
       "src": "/images/quepay/hmi-pin.webp",
@@ -148,7 +159,8 @@
       "project": "quepay-controller",
       "alt": "Settings screen prompting the operator to enter a PIN",
       "caption": "PIN gate in front of the settings menu",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 757
     },
     {
       "src": "/images/quepay/relay-stage-3d.webp",
@@ -157,7 +169,8 @@
       "project": "quepay-controller",
       "alt": "Altium 3D render of a four-channel relay board with screw terminal blocks, varistors and an FFC connector",
       "caption": "Four-channel relay output stage with surge protection on each line",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 1243
     },
     {
       "src": "/images/quepay/bench-rig.webp",
@@ -165,7 +178,8 @@
       "cluster": "quepay",
       "project": "quepay-controller",
       "alt": "Bench setup with a relay bank, an NFC reader module and an LCD wired together on a cutting mat",
-      "caption": "Bench rig: relays, NFC reader and display under test"
+      "caption": "Bench rig: relays, NFC reader and display under test",
+      "width": 1600
     },
     {
       "src": "/images/bench/workspace.webp",
@@ -173,7 +187,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "A laptop showing the controller firmware source tree beside a monitor with an enclosure model in Fusion 360, with two assembled front panels on the desk",
-      "caption": "Firmware, enclosure CAD and the assembled panels, on one desk"
+      "caption": "Firmware, enclosure CAD and the assembled panels, on one desk",
+      "width": 1600
     },
     {
       "src": "/images/bench/batch.webp",
@@ -181,7 +196,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "Five populated controller boards laid out in a row, each carrying a cellular module and a radio module, with a reflow oven and soldering station behind",
-      "caption": "A batch of five, populated and waiting for bring-up"
+      "caption": "A batch of five, populated and waiting for bring-up",
+      "width": 1600
     },
     {
       "src": "/images/bench/board-detail.webp",
@@ -189,7 +205,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "Close-up of a populated controller board showing an ESP32 module, a Quectel cellular module, a SIM slot and the switching regulator",
-      "caption": "ESP32 and Quectel modem on one board, powered up"
+      "caption": "ESP32 and Quectel modem on one board, powered up",
+      "width": 1600
     },
     {
       "src": "/images/bench/two-up-test.webp",
@@ -197,7 +214,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "Two controller boards wired to bench power through Molex connectors, with a small adapter board between them",
-      "caption": "Two boards on the bench, running against each other"
+      "caption": "Two boards on the bench, running against each other",
+      "width": 1600
     },
     {
       "src": "/images/bench/panel-array.webp",
@@ -205,7 +223,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "A row of bare controller boards spread across a workbench beside an ESD mat, with a reflow oven and bench supply behind",
-      "caption": "Boards back from fab, laid out before assembly"
+      "caption": "Boards back from fab, laid out before assembly",
+      "width": 1600
     },
     {
       "src": "/images/bench/green-panels.webp",
@@ -213,28 +232,32 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "Three green circuit boards carrying the QuePay logo on an ESD mat, with a populated board alongside",
-      "caption": "A later revision, in green"
+      "caption": "A later revision, in green",
+      "width": 1600
     },
     {
       "src": "/images/bench/lab.webp",
       "source": "1774594790344.jpeg",
       "cluster": "bench",
       "alt": "A workbench with a magnifier lamp, helping hands and probes, and a rack of stacked component trays by the window",
-      "caption": "The bench"
+      "caption": "The bench",
+      "width": 1600
     },
     {
       "src": "/images/bench/parts-staged.webp",
       "source": "1764049513510.jpeg",
       "cluster": "bench",
       "alt": "Circuit boards and display modules in antistatic bags staged on an ESD mat ready for assembly",
-      "caption": "Displays and boards staged for a build"
+      "caption": "Displays and boards staged for a build",
+      "width": 800
     },
     {
       "src": "/images/bench/lora-board.webp",
       "source": "1776433181183.jpeg",
       "cluster": "bench",
       "alt": "A triangular black board with a LoRa radio module and helical antenna, three buttons silkscreened call, cancel and bill, beside a green board with a character LCD",
-      "caption": "A triangular LoRa board: three buttons, one radio, no right angles"
+      "caption": "A triangular LoRa board: three buttons, one radio, no right angles",
+      "width": 1600
     },
     {
       "src": "/images/bench/relay-bank.webp",
@@ -242,7 +265,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "A controller board with a colour display and NFC reader wired by ribbon cable to a sixteen-channel relay bank",
-      "caption": "Controller driving a sixteen-channel relay bank"
+      "caption": "Controller driving a sixteen-channel relay bank",
+      "width": 1200
     },
     {
       "src": "/images/bench/under-test.webp",
@@ -250,7 +274,8 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "About ten green boards laid out across a bench in front of a programmable power supply, wired for test",
-      "caption": "A run of boards on test in front of the bench supply"
+      "caption": "A run of boards on test in front of the bench supply",
+      "width": 800
     },
     {
       "src": "/images/bench/green-board.webp",
@@ -258,35 +283,40 @@
       "cluster": "bench",
       "project": "quepay-controller",
       "alt": "A green controller board carrying a radio module, a cellular module and a CE mark",
-      "caption": "The green revision, populated and marked"
+      "caption": "The green revision, populated and marked",
+      "width": 1200
     },
     {
       "src": "/images/bench/probing-01.webp",
       "source": "IMG_9966.HEIC",
       "cluster": "bench",
       "alt": "Probing a blue PCB held in helping hands, multimeter alongside, under a magnifier lamp",
-      "caption": "Rail-by-rail bring-up on a new board"
+      "caption": "Rail-by-rail bring-up on a new board",
+      "width": 1200
     },
     {
       "src": "/images/bench/probing-02.webp",
       "source": "IMG_9969.HEIC",
       "cluster": "bench",
       "alt": "Taking a multimeter reading from the board under test",
-      "caption": "Checking a regulator output against spec"
+      "caption": "Checking a regulator output against spec",
+      "width": 1200
     },
     {
       "src": "/images/bench/probing-03.webp",
       "source": "IMG_9972.HEIC",
       "cluster": "bench",
       "alt": "Close work on the board with a probe in each hand",
-      "caption": "Continuity checks before first power-up"
+      "caption": "Continuity checks before first power-up",
+      "width": 1200
     },
     {
       "src": "/images/bench/reflow.webp",
       "source": "IMG_8381.HEIC",
       "cluster": "bench",
       "alt": "A green PCB sitting inside a T-962 benchtop reflow oven",
-      "caption": "Board going through reflow"
+      "caption": "Board going through reflow",
+      "width": 1600
     },
     {
       "src": "/images/veno/io-board.webp",
@@ -294,7 +324,8 @@
       "cluster": "veno",
       "project": "veno-instrumentation",
       "alt": "Large green control board with screw terminal blocks, relays and through-hole ICs, wired to a harness",
-      "caption": "Multi-channel I/O board, wired up on the bench"
+      "caption": "Multi-channel I/O board, wired up on the bench",
+      "width": 1200
     },
     {
       "src": "/images/veno/control-panel.webp",
@@ -302,7 +333,8 @@
       "cluster": "veno",
       "project": "veno-instrumentation",
       "alt": "An electrical control panel cabinet with a blue frame, DIN rail and mounted components",
-      "caption": "Control panel: DIN rail, distribution and protection"
+      "caption": "Control panel: DIN rail, distribution and protection",
+      "width": 1200
     },
     {
       "src": "/images/veno/field-device.webp",
@@ -310,7 +342,8 @@
       "cluster": "veno",
       "project": "veno-instrumentation",
       "alt": "A red field enclosure opened up and serviced outdoors",
-      "caption": "Field device opened up on site"
+      "caption": "Field device opened up on site",
+      "width": 1200
     },
     {
       "src": "/images/veno/compact-board.webp",
@@ -318,7 +351,8 @@
       "cluster": "veno",
       "project": "veno-instrumentation",
       "alt": "A very small green PCB resting on a wooden desk for scale",
-      "caption": "Compact sensor board"
+      "caption": "Compact sensor board",
+      "width": 1200
     },
     {
       "src": "/images/power/render.webp",
@@ -326,7 +360,8 @@
       "cluster": "power",
       "alt": "Rendered green power board with a toroidal inductor, screw terminal blocks and a transformer",
       "caption": "Power board, rendered in Blender",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 1280
     },
     {
       "src": "/images/power/modelling.webp",
@@ -334,7 +369,8 @@
       "cluster": "power",
       "alt": "Blender workspace showing the power board model being assembled",
       "caption": "Modelling the same board in Blender",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 1280
     },
     {
       "src": "/images/manufacturing/production-workshop.webp",
@@ -342,7 +378,8 @@
       "cluster": "manufacturing",
       "alt": "Ivy Matobori and two colleagues in ESD smocks, hairnets and shoe covers, standing outside the door to a production workshop",
       "caption": "Gowned up outside the production workshop at EADAK",
-      "focus": "top"
+      "focus": "top",
+      "width": 800
     },
     {
       "src": "/images/manufacturing/eadak.webp",
@@ -350,7 +387,18 @@
       "cluster": "manufacturing",
       "alt": "Ivy Matobori and two colleagues standing in a reception area in front of an illuminated EADAK sign",
       "caption": "At EADAK, Athi River",
-      "focus": "top"
+      "focus": "top",
+      "width": 800
+    },
+    {
+      "src": "/images/power/eps-architecture.png",
+      "source": "(generated by scripts/make-eps-cover.mjs)",
+      "cluster": "power",
+      "project": "satellite-eps",
+      "alt": "Block diagram of the satellite power system: solar and battery into four DC-DC rails, then six branches each behind its own overcurrent device, with one branch shown faulted and isolated",
+      "caption": "Fault isolation: one branch opens, the other five keep running",
+      "fit": "contain",
+      "generated": true
     },
     {
       "src": "/images/personal/intruder-3d.webp",
@@ -358,21 +406,24 @@
       "cluster": "personal",
       "alt": "Altium 3D render of a black board with a display, radio module and edge connectors",
       "caption": "Intruder101, 3D view from Altium",
-      "fit": "contain"
+      "fit": "contain",
+      "width": 1069
     },
     {
       "src": "/images/about/on-site.webp",
       "source": "IMG_20240426_171628_Original.jpg",
       "cluster": "about",
       "alt": "Ivy Matobori standing in an orange high-visibility vest with a lanyard",
-      "caption": "On site"
+      "caption": "On site",
+      "width": 1200
     },
     {
       "src": "/images/about/workbench.webp",
       "source": "IMG_7226.HEIC",
       "cluster": "about",
       "alt": "A workbench with orange component storage bins, hand tools and parts laid out",
-      "caption": "The bench"
+      "caption": "The bench",
+      "width": 1200
     }
   ]
 }
