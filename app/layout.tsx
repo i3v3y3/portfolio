@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Serif, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
+import Nav from '@/components/Nav'
 
 /**
  * Type system: IBM Plex, one family in three voices.
@@ -80,6 +81,7 @@ export default function RootLayout({
           >
             Skip to content
           </a>
+          <Nav />
           {children}
         </ThemeProvider>
       </body>
