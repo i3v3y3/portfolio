@@ -22,10 +22,31 @@ export interface ProjectMeta {
    * tall, and a centre crop landed squarely in the diagram's own whitespace.
    */
   coverFit?: 'cover' | 'contain'
+  /** Design decisions and what each cost. See Decision below. */
+  decisions?: Decision[]
   /** Spec table rows, `[label, value]`. Rendered under the cover. */
   specs?: [string, string][]
   /** System diagram, rendered before the photographs. */
   architecture?: { caption?: string; nodes: ArchNode[] }
+}
+
+/**
+ * One design decision, in the shape Nygard's ADR uses: the constraint that
+ * forced it, what was chosen, why, and what it cost.
+ *
+ * `cost` is not optional, deliberately. A decision recorded without its
+ * downside reads as a sales pitch, and the trade-off is the part that shows
+ * judgement rather than preference.
+ */
+export interface Decision {
+  /** The constraint or question that forced the choice. */
+  constraint: string
+  /** What was decided. */
+  choice: string
+  /** Why, in terms of the physics or the failure it avoids. */
+  reasoning: string
+  /** What the choice gave up. Required. */
+  cost: string
 }
 
 /**
@@ -65,6 +86,16 @@ const ProjectMetaSchema = z.object({
   coverCaption: z.string().optional(),
   coverFit: z.enum(['cover', 'contain']).optional(),
   result: z.string().optional(),
+  decisions: z
+    .array(
+      z.object({
+        constraint: z.string(),
+        choice: z.string(),
+        reasoning: z.string(),
+        cost: z.string(),
+      })
+    )
+    .optional(),
   specs: z.array(z.tuple([z.string(), z.string()])).optional(),
   architecture: z
     .object({

@@ -48,6 +48,15 @@ architecture:
           note: "trends, thresholds, remote diagnostics"
 coverCaption: "Product photo — level sensor hardware"
 result: "6 products shipped across school, utility, retail and municipal sites"
+decisions:
+  - constraint: "Range and battery life pull against each other"
+    choice: "Pick the radio per site, not per product"
+    reasoning: "A level sensor on a borehole has no mains supply and needs to last on a battery, which rules out anything that keeps a radio warm. A meter in a building already has WiFi and mains. Committing the product to one radio would have meant either a sensor that dies in the field or a needlessly expensive one indoors."
+    cost: "Four radio front ends to design, stock, test and support instead of one, and a commissioning step where somebody has to choose correctly. A wrong choice at install time is a site visit."
+  - constraint: "Every client wanted the same two measurements in a different shape"
+    choice: "Standard instrument nodes configured to a site"
+    reasoning: "Level and power were being quoted as weeks of custom development each time. Building the node once and making the deployment a configuration job moved the work from engineering to commissioning."
+    cost: "The first deployment took longer than a bespoke build would have, and generality has an ongoing price: a node carrying options a site does not use is a node with more firmware paths that can be wrong."
 ---
 
 ## The problem

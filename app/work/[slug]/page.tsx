@@ -6,6 +6,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import { getAllProjectSlugs, getProjectBySlug } from '@/lib/projects'
 import StackPill from '@/components/StackPill'
 import SpecTable from '@/components/SpecTable'
+import Decisions from '@/components/Decisions'
 import Architecture from '@/components/Architecture'
 import Footer from '@/components/Footer'
 import { formatDate } from '@/lib/utils'
@@ -122,6 +123,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             }}
           />
         </div>
+
+        {/* Decisions after the prose. The prose says what was built; this says
+            why it is shaped that way, which is the part a hiring engineer is
+            reading for and the part that used to be buried under headings like
+            "Why 4 layers" halfway down. */}
+        {meta.decisions && meta.decisions.length > 0 && (
+          <section className="mt-12" aria-labelledby="decisions-heading">
+            <h2
+              id="decisions-heading"
+              className="mb-1 font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-foreground"
+            >
+              Decisions, and what they cost
+            </h2>
+            <Decisions decisions={meta.decisions} />
+          </section>
+        )}
 
         {/* Diagram after the prose but before the photographs: it explains
             what the pictures then show. */}

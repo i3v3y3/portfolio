@@ -123,7 +123,50 @@ something: put the file alongside the others and add a block with `src`, `source
 
 ---
 
-## 7. The writing is in your voice but is not your words
+## 7. The one thing missing, and only you can write it
+
+Each case study now has a "Decisions, and what they cost" section — the 4-layer
+argument, the six-branch EPS split, the radio-per-site choice. Those are real
+and they are the strongest thing on the site, because they show reasoning rather
+than output.
+
+What is missing is a **failure**. One story where something did not work and you
+found out why. Every source worth reading on this says the same thing: the dead
+ends are the content. Nygard's decision records make the negative consequences a
+required section. Agans' debugging rules include "keep an audit trail" — the
+hypotheses that were wrong are part of the record. Google's postmortem practice
+puts the timeline before the root cause precisely so the write-up shows the
+search rather than just the answer.
+
+Nobody can write this but you. If it were invented it would be the single most
+dangerous thing on the site, because a debugging story is what an interviewer
+opens with.
+
+If you want one on there, answer these and I will shape it:
+
+1. **What was the symptom?** Not the cause — what did somebody actually see or
+   report. "Units coming back from site", "readings drifting after a week",
+   "one machine in ten failing at power-on".
+2. **How did you reproduce it on the bench?** Or could you not, and what did
+   you do then?
+3. **What did you think it was first, and why was that wrong?** This is the
+   part most people delete and the part worth the most.
+4. **What did the instrument actually show?** A scope trace, a meter reading,
+   a log line.
+5. **What was it in the end?**
+6. **How did you confirm the fix?** Did you put the fault back deliberately to
+   check?
+7. **What changed so it cannot happen again** — a design rule, a test step, a
+   procedure?
+
+Three or four sentences per answer is plenty. It does not need to be a dramatic
+failure. A ground loop, a wrong pull-up, a connector that worked on the bench
+and not in the panel — the ordinary ones are the most convincing, because every
+hardware engineer reading it has had the same week.
+
+---
+
+## 8. The writing is in your voice but is not your words
 
 The whole site is first person. Jeff and an AI wrote it. Lines like *"on someone else's
 worst day"* and *"I read fairly indiscriminately"* are our characterisation of you.

@@ -40,6 +40,15 @@ architecture:
 coverCaption: "Power distribution architecture"
 coverFit: contain
 result: "92% conversion efficiency against a 5 W orbit-average budget"
+decisions:
+  - constraint: "One fault must not take the spacecraft with it"
+    choice: "Six independently protected branches rather than one bus"
+    reasoning: "The failure mode that matters is not a rail browning out, it is one subsystem faulting and dragging the bus down with it. A short in one payload opens that branch and leaves the other five running. There is no maintenance window in orbit, so containment is the only mitigation available."
+    cost: "Board area and part count for protection you hope never operates, plus six more things that can themselves fail open. On a CubeSat, area is the scarcest resource on the board."
+  - constraint: "Four switching converters sharing one board"
+    choice: "6 layers, with dedicated power and ground planes"
+    reasoning: "On a shared plane each converter's switching noise couples into the others' feedback paths, and the efficiency measured on the bench is not what you get in orbit. Separate planes buy behaviour that matches the bench characterisation."
+    cost: "Two extra layers on a board that is already expensive per square centimetre, and a longer fab lead time on a three-month placement."
 ---
 
 ## The problem
@@ -55,21 +64,6 @@ The power distribution board, taken from schematic capture through layout to
 fabrication release across a three-month placement. Four regulated rails on
 redundant distribution paths, carrying DC-DC conversion, filtering and
 overcurrent protection.
-
-## Why six independently protected branches
-
-The failure mode that matters is not a rail browning out, it is one subsystem
-faulting and dragging the bus down with it. Splitting distribution into six
-branches, each behind its own overcurrent device, means a short in one payload
-opens that branch and leaves the other five running. The cost is board area and
-part count for protection you hope never operates.
-
-## Why 6 layers
-
-Dedicated power and ground planes. With four switching converters on one board,
-a shared plane means each converter's switching noise couples into the others'
-feedback paths, and the efficiency you measured on the bench is not what you get
-in orbit. Separate planes cost two extra layers and buy predictable behaviour.
 
 ## Result
 

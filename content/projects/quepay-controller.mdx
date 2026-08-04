@@ -18,6 +18,15 @@ featured: true
 cover: "/images/quepay/in-hand.webp"
 coverCaption: "Board photo — top and bottom"
 result: "6+ machine verticals on one board, KES 10M+ processed"
+decisions:
+  - constraint: "A cellular modem and low-level sensing on one board"
+    choice: "4 layers, not 2"
+    reasoning: "The modem draws hard, fast current on every transmit burst. Without a continuous ground plane that noise couples into the measurement lines, and without a separate power plane the rails sag under the burst. On two layers you route around your own return paths and the noise shows up as bad readings in the field rather than on the bench, which is the worst place to find it."
+    cost: "Roughly double the bare-board price per unit, and a stack-up that a cheaper fab house will not quote on. At the volumes this ships, that is real money spent on a problem nobody would see until the boards were already deployed."
+  - constraint: "Six machine types, one product"
+    choice: "One controller board for all of them"
+    reasoning: "A water ATM, a laundry machine and a pool table differ in what they actuate and what they charge, not in how they take a payment or meter a quantity. Splitting the common part from the varying part put the difference in the relay stage and the tariff table instead of in the PCB."
+    cost: "Every board carries hardware some installations never use, so the unit cost of the simplest vertical is higher than a board designed only for it. The trade is one design to maintain instead of six."
 specs:
   - ["MCU", "ESP32 (WiFi and BLE), ESP-IDF"]
   - ["Cellular", "Quectel LTE module, SIM slot on board"]
@@ -65,15 +74,6 @@ Firmware in C++ on FreeRTOS and ESP-IDF that meters out product by volume across
 four preset tiers, applies the right price to each, and streams every
 transaction back over LTE. The board is a 4-layer design in Altium carrying the
 cellular modem, BLE and the sensing interfaces.
-
-## Why 4 layers
-
-Two would have been cheaper per unit. The board carries a cellular modem
-alongside low-level sensing, so it needs a continuous ground plane to keep RF
-noise off the measurement lines, and a separate power plane to hold rails steady
-through transmit bursts. Squeezing that onto two layers means routing around
-your own return paths, and the noise shows up as bad readings in the field
-rather than on the bench.
 
 ## Result
 
