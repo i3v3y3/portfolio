@@ -36,13 +36,12 @@ const LINKS = [
  * The CV download is the one action a recruiter actually takes, so it is a
  * primary control here rather than a footer link.
  *
- * PORTRAIT: set PORTRAIT to the image path once Ivy supplies one. Until then
- * the hero is deliberately single-column. An empty 400px placeholder was the
- * second thing the eye landed on and read as an unfinished page — worse than
- * no portrait at all. A pending slot is a note to ourselves, not something a
- * recruiter should ever see.
+ * PORTRAIT: null until Ivy supplied photographs, because an empty 400px
+ * placeholder was the second thing the eye landed on and read as an unfinished
+ * page — worse than no portrait at all. Now filled. Set back to null rather
+ * than substituting a stock image if it ever needs to come out.
  */
-const PORTRAIT: string | null = null
+const PORTRAIT: string | null = '/images/about/on-site.webp'
 export default function Hero() {
   return (
     <header
@@ -127,9 +126,11 @@ export default function Hero() {
         <div className="w-full max-w-[22rem] overflow-hidden rounded-xl border border-border">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={PORTRAIT}
-            alt="Ivy Matobori"
-            className="aspect-[3/2] w-full object-cover md:aspect-[4/5]"
+            src={asset(PORTRAIT)}
+            alt="Ivy Matobori on site in a high-visibility vest"
+            width={1200}
+            height={1600}
+            className="aspect-[3/2] w-full object-cover object-top md:aspect-[4/5]"
           />
         </div>
       )}

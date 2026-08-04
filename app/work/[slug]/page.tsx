@@ -7,6 +7,8 @@ import { getAllProjectSlugs, getProjectBySlug } from '@/lib/projects'
 import StackPill from '@/components/StackPill'
 import Footer from '@/components/Footer'
 import { formatDate } from '@/lib/utils'
+import { photosForProject } from '@/lib/photos'
+import { asset } from '@/lib/asset'
 
 export function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }))
@@ -51,6 +53,8 @@ function Note({ children }: { children: React.ReactNode }) {
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const { meta, content } = getProjectBySlug(slug)
+  // The cover already appears at the top; don't repeat it in the figure grid.
+  const figures = photosForProject(slug).filter((p) => p.src !== meta.cover)
 
   return (
     <div className="mx-auto max-w-[46rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-16">
@@ -82,8 +86,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             a reader should see the writing, not a hole where a photo isn't. */}
         {meta.cover && (
           <div className="mb-8 overflow-hidden rounded-xl border border-border">
+            {/* asset() because a raw <img> does not get basePath applied — on
+                the Pages deploy this resolves to /portfolio/images/… and
+                without it the cover 404s on every project page. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={meta.cover} alt={meta.title} className="aspect-[16/10] w-full object-cover" />
+            <img
+              src={asset(meta.cover)}
+              alt={meta.title}
+              className="aspect-[16/10] w-full object-cover"
+            />
           </div>
         )}
 
@@ -102,6 +113,38 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             }}
           />
         </div>
+
+        {figures.length > 0 && (
+          <section className="mt-12" aria-labelledby="figures-heading">
+            <h2
+              id="figures-heading"
+              className="mb-5 font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-foreground"
+            >
+              From the bench
+            </h2>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {figures.map((photo) => (
+                <figure key={photo.src} className="flex flex-col gap-2">
+                  <div className="overflow-hidden rounded-xl border border-border bg-surface">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={asset(photo.src)}
+                      alt={photo.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className={`aspect-[4/3] w-full ${
+                        photo.fit === 'contain' ? 'object-contain p-2' : 'object-cover'
+                      }`}
+                    />
+                  </div>
+                  <figcaption className="text-[13px] leading-snug text-muted">
+                    {photo.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
 
         {meta.github && (
           <a
