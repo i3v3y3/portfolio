@@ -3,8 +3,15 @@
  *
  * GitHub Pages serves a project site from a subpath — i3v3y3.github.io/portfolio
  * — so `/Ivy_Matobori_Resume.pdf` resolves to i3v3y3.github.io/Ivy_Matobori_Resume.pdf
- * and 404s. `next/link` and `next/image` apply basePath on their own; a raw
- * <a href> or <img src> does not, so those need this.
+ * and 404s.
+ *
+ * `next/link` applies basePath on its own. Everything else here does NOT:
+ * a raw <a href>, a raw <img src>, and — the one that catches people —
+ * `next/image` when `images.unoptimized` is set, because the default loader
+ * then passes src through untouched. All of those need this.
+ *
+ * None of it reproduces locally, where NEXT_PUBLIC_BASE_PATH is empty and every
+ * path works either way. It only breaks on the deploy.
  *
  * On a custom domain the site sits at the root, NEXT_PUBLIC_BASE_PATH is empty,
  * and this is a no-op. One env var flips the whole site between the two.

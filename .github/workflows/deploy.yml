@@ -56,6 +56,24 @@ jobs:
           echo "Building with base path: '${BP}'"
           NEXT_PUBLIC_BASE_PATH="$BP" npm run build
 
+      - name: Check every asset URL carries the base path
+        # basePath bugs are invisible locally — NEXT_PUBLIC_BASE_PATH is empty
+        # in dev, so a bare /images/… works there and 404s only once deployed.
+        # This is the only place the mistake is observable before a human sees
+        # a broken image. next/image with images.unoptimized is the usual
+        # culprit: it does not apply basePath, despite next/link doing so.
+        run: |
+          BP="${{ steps.pages.outputs.base_path }}"
+          BP="${BP%/}"
+          if [ -z "$BP" ]; then echo "No base path (custom domain) — nothing to check"; exit 0; fi
+          if grep -rhoE '(src|href)="/(images|[A-Za-z0-9_]+\.(webp|png|jpe?g|pdf))[^"]*"' out --include='*.html' \
+             | grep -v "\"$BP/" | sort -u | tee /tmp/bare.txt | grep -q .; then
+            echo "::error::asset URLs missing the '$BP' prefix — these will 404 on the deploy:"
+            cat /tmp/bare.txt
+            exit 1
+          fi
+          echo "All asset URLs carry $BP"
+
       - name: Check the CV actually shipped
         # This is the one link a recruiter clicks. If the export ever stops
         # copying public/, fail here rather than serving a 404.

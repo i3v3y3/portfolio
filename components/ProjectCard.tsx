@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { ProjectMeta } from '@/lib/projects'
 import { formatDate } from '@/lib/utils'
+import { asset } from '@/lib/asset'
 
 /**
  * Project card.
@@ -21,8 +22,12 @@ export default function ProjectCard({ meta }: { meta: ProjectMeta }) {
     >
       {meta.cover ? (
         <div className="relative w-full h-[160px] overflow-hidden">
+          {/* asset() even though this is next/image: with images.unoptimized
+              the loader passes src straight through and basePath is NOT
+              applied, so on the Pages deploy this 404s. Caught live, not in
+              dev, because basePath is empty locally. */}
           <Image
-            src={meta.cover}
+            src={asset(meta.cover)}
             alt={`${meta.title} — hardware`}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
