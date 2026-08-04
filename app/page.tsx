@@ -5,7 +5,7 @@ import SectionHeading from '@/components/SectionHeading'
 import Footer from '@/components/Footer'
 import { getAllProjects } from '@/lib/projects'
 import { photos } from '@/lib/photos'
-import { asset } from '@/lib/asset'
+import { asset, srcSet } from '@/lib/asset'
 import VideoEmbeds from '@/components/VideoEmbeds'
 import { videos } from '@/content/videos'
 
@@ -180,6 +180,8 @@ export default function Home() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={asset(photo.src)}
+                      srcSet={srcSet(photo.src)}
+                      sizes="(max-width: 640px) 50vw, 220px"
                       alt={photo.alt}
                       loading="lazy"
                       decoding="async"

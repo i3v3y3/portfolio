@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Cluster, Photo } from '@/lib/photos'
-import { asset } from '@/lib/asset'
+import { asset, srcSet } from '@/lib/asset'
 
 /**
  * Photo gallery with a lightbox.
@@ -128,6 +128,8 @@ export default function Gallery({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={asset(photo.src)}
+                        srcSet={srcSet(photo.src)}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
                         alt={photo.alt}
                         loading="lazy"
                         decoding="async"

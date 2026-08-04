@@ -74,6 +74,23 @@ jobs:
           fi
           echo "All asset URLs carry $BP"
 
+      - name: Check the share card and sitemap
+        # A recruiter forwarding this link is how it spreads inside a hiring
+        # team, and og:url pointed at a dead domain for weeks without anyone
+        # browsing the site being able to tell.
+        run: |
+          test -s out/og.jpg
+          test -s out/sitemap.xml
+          test -s out/robots.txt
+          OG=$(grep -oP '(?<=property="og:image" content=")[^"]+' out/index.html)
+          echo "og:image = $OG"
+          case "$OG" in
+            *portfolio/portfolio/*) echo "::error::og:image has a doubled base path"; exit 1 ;;
+            https://*) ;;
+            *) echo "::error::og:image is not absolute — unfurls need a full URL"; exit 1 ;;
+          esac
+          curl -sfI "$OG" >/dev/null || { echo "::error::og:image 404s at $OG"; exit 1; }
+
       - name: Check the resume actually shipped
         # This is the one link a recruiter clicks. If the export ever stops
         # copying public/, fail here rather than serving a 404.

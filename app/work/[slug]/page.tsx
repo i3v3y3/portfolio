@@ -8,7 +8,7 @@ import StackPill from '@/components/StackPill'
 import Footer from '@/components/Footer'
 import { formatDate } from '@/lib/utils'
 import { photosForProject } from '@/lib/photos'
-import { asset } from '@/lib/asset'
+import { asset, srcSet } from '@/lib/asset'
 
 export function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }))
@@ -129,6 +129,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={asset(photo.src)}
+                      srcSet={srcSet(photo.src)}
+                      sizes="(max-width: 640px) 100vw, 350px"
                       alt={photo.alt}
                       loading="lazy"
                       decoding="async"

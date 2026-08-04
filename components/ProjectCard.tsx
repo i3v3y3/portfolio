@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import type { ProjectMeta } from '@/lib/projects'
 import { formatDate } from '@/lib/utils'
-import { asset } from '@/lib/asset'
+import { asset, srcSet } from '@/lib/asset'
 
 /**
  * Project card.
@@ -22,16 +21,20 @@ export default function ProjectCard({ meta }: { meta: ProjectMeta }) {
     >
       {meta.cover ? (
         <div className="relative w-full h-[160px] overflow-hidden">
-          {/* asset() even though this is next/image: with images.unoptimized
-              the loader passes src straight through and basePath is NOT
-              applied, so on the Pages deploy this 404s. Caught live, not in
-              dev, because basePath is empty locally. */}
-          <Image
+          {/* Plain <img>, not next/image. With images.unoptimized the loader
+              passes src through untouched — no resizing, no srcset, and not
+              even basePath (hence asset()) — so all next/image contributed was
+              a wrapper element. A real srcset means a 275px card takes the
+              400px file instead of the 1600px one. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={asset(meta.cover)}
+            srcSet={srcSet(meta.cover)}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
             alt={`${meta.title} — hardware`}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 1024px) 100vw, 33vw"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       ) : (

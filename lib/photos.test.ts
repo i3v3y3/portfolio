@@ -41,8 +41,29 @@ describe('photo manifest', () => {
     }
     walk(dir)
     const described = new Set(photos.map((p) => p.src))
-    const orphans = onDisk.filter((f) => !described.has(f))
+    // foo-400.webp and foo-800.webp are srcset variants the importer writes
+    // beside foo.webp. They are not manifest entries, but an orphaned variant
+    // is still dead weight, so resolve each back to its parent and check that.
+    const orphans = onDisk.filter(
+      (f) => !described.has(f) && !described.has(f.replace(/-(400|800)\.webp$/, '.webp'))
+    )
     expect(orphans, `not in content/photos.json: ${orphans.join(', ')}`).toEqual([])
+  })
+
+  it('emits a narrow variant for every photo big enough to need one', async () => {
+    const { default: sharp } = await import('sharp')
+    const missing: string[] = []
+    for (const p of photos) {
+      const full = path.join(pub, p.src.replace(/^\//, ''))
+      const { width = 0 } = await sharp(full).metadata()
+      // The importer skips a width when the source is already narrower.
+      for (const w of [400, 800]) {
+        if (width <= w) continue
+        const variant = full.replace(/\.webp$/, `-${w}.webp`)
+        if (!fs.existsSync(variant)) missing.push(`${p.src} @${w}w`)
+      }
+    }
+    expect(missing, `re-run scripts/import-photos.mjs: ${missing.join(', ')}`).toEqual([])
   })
 
   it('carries no EXIF, so no GPS coordinates ship', async () => {

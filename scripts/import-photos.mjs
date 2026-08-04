@@ -34,6 +34,10 @@ import process from 'node:process'
 // than it needs. The audience includes people on metered mobile data.
 const MAX_EDGE = 1600
 const QUALITY = 80
+// Extra widths emitted beside each image for srcset. The gallery shows these in
+// ~400px tiles and the home strip in ~200px squares; shipping 1600px into a
+// 200px box was most of a 2.4 MB home page.
+const SRCSET_WIDTHS = [400, 800]
 
 const srcDir = process.argv[2]
 if (!srcDir) {
@@ -119,6 +123,16 @@ for (const photo of manifest.photos) {
     .resize(MAX_EDGE, MAX_EDGE, { fit: 'inside', withoutEnlargement: true })
     .webp({ quality: QUALITY })
     .toFile(dest)
+
+  // Narrow variants alongside it: foo.webp -> foo-400.webp, foo-800.webp.
+  for (const w of SRCSET_WIDTHS) {
+    if (info.width <= w) continue
+    await sharp(input)
+      .rotate()
+      .resize(w, null, { withoutEnlargement: true })
+      .webp({ quality: QUALITY })
+      .toFile(dest.replace(/\.webp$/, `-${w}.webp`))
+  }
 
   if (isHeic) await rm(input, { force: true })
 
