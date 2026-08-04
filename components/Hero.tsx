@@ -1,3 +1,5 @@
+import { asset } from '@/lib/asset'
+
 const LINKS = [
   {
     href: 'mailto:matoboriivy@gmail.com',
@@ -74,7 +76,7 @@ export default function Hero() {
 
         <div className="flex flex-wrap gap-2.5">
           <a
-            href="/Ivy_Matobori_Resume.pdf"
+            href={asset('/Ivy_Matobori_Resume.pdf')}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-accent px-4 py-2 text-[15px] font-medium text-accent-text no-underline transition-opacity hover:opacity-90"
           >
             <svg

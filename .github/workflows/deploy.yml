@@ -1,0 +1,76 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GITHUB_TOKEN needs these to publish. `pages: write` also lets
+# configure-pages turn Pages on the first time it runs.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Don't cancel a running one — a half-finished deploy
+# is worse than a slightly stale site.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on if it isn't already, so this needs no manual setup.
+          enablement: true
+
+      - name: Build
+        # A project site is served from /<repo>, so the app needs to know its
+        # own prefix. configure-pages hands us the real base_path; strip the
+        # trailing slash it sometimes carries. On a custom domain this
+        # resolves to empty and the site builds for the root.
+        run: |
+          BP="${{ steps.pages.outputs.base_path }}"
+          BP="${BP%/}"
+          echo "Building with base path: '${BP}'"
+          NEXT_PUBLIC_BASE_PATH="$BP" npm run build
+
+      - name: Check the CV actually shipped
+        # This is the one link a recruiter clicks. If the export ever stops
+        # copying public/, fail here rather than serving a 404.
+        run: |
+          test -s out/Ivy_Matobori_Resume.pdf
+          test -s out/Ivy_Matobori_Resume_OctaviaCarbon_IC.pdf
+          echo "CV PDFs present"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
