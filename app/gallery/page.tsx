@@ -14,10 +14,19 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   const groups = galleryClusters()
 
+  // Built from what actually renders, not a hand-kept list. A cluster with no
+  // photos is already filtered out by galleryClusters(), so the rail cannot
+  // offer a link to a section that is not on the page.
+  const sections = [
+    ...groups.map((g) => ({ id: `cluster-${g.cluster.id}`, label: g.cluster.label })),
+    ...(videos.length > 0 ? [{ id: 'video-heading', label: 'On video' }] : []),
+  ]
+
   return (
     <PageShell
       title="Gallery"
       intro="Photographs from the bench and from site. Most of the claims elsewhere on this site were made with the hardware in these pictures."
+      sections={sections}
     >
       {groups.length === 0 ? (
         <p className="text-[14px] text-muted-dim">No photos published yet.</p>

@@ -1,4 +1,5 @@
 import Footer from '@/components/Footer'
+import OnThisPage, { type Section } from '@/components/OnThisPage'
 
 /**
  * Page container. Five routes now share one measure, one gutter and one footer;
@@ -11,15 +12,19 @@ import Footer from '@/components/Footer'
 export default function PageShell({
   title,
   intro,
+  sections,
   children,
 }: {
   /** Rendered as the page h1. Omit on the home page, where Hero supplies it. */
   title?: string
   intro?: React.ReactNode
+  /** In-page contents. Only pass on routes long enough to need one. */
+  sections?: Section[]
   children: React.ReactNode
 }) {
   return (
-    <div className="mx-auto max-w-[58rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
+    <div className="relative mx-auto max-w-[58rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
+      {sections && sections.length > 0 && <OnThisPage sections={sections} />}
       <main id="main">
         {title && (
           <header className="mb-10 flex flex-col gap-3">

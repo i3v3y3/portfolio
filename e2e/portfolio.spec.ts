@@ -130,7 +130,7 @@ test.describe('home page imagery', () => {
     await page.goto('/')
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
-        window.scrollTo(0, y)
+        window.scrollTo({ top: y, behavior: 'instant' })
         await new Promise((r) => setTimeout(r, 100))
       }
     })
@@ -144,6 +144,80 @@ test.describe('home page imagery', () => {
 
     expect(repeated, `repeated on the home page: ${repeated.join(', ')}`).toEqual([])
     expect(srcs.length, 'home page lost its images').toBeGreaterThan(4)
+  })
+})
+
+test.describe('on this page rail', () => {
+  const WIDE = { width: 1500, height: 950 }
+
+  test('every rail link points at a heading that exists', async ({ page }) => {
+    // The case-study rail derives prose anchors from the MDX by slugifying the
+    // heading text, mirroring what rehype-slug does. If those two ever disagree
+    // the rail silently links to nothing, which is exactly the failure a
+    // hand-kept list produces and this one is meant to avoid.
+    await page.setViewportSize(WIDE)
+
+    for (const route of ['/gallery/', '/work/quepay-controller/']) {
+      await page.goto(route)
+      const rail = page.locator('aside[aria-label="On this page"]')
+      const hrefs = await rail.locator('a').evaluateAll((els) =>
+        els.map((e) => (e as HTMLAnchorElement).getAttribute('href')!)
+      )
+      expect(hrefs.length, `${route} rendered an empty rail`).toBeGreaterThan(2)
+
+      for (const href of hrefs) {
+        const target = page.locator(href)
+        await expect(target, `${route} rail links to ${href}, which is not on the page`)
+          .toHaveCount(1)
+      }
+    }
+  })
+
+  test('the active entry follows the scroll position', async ({ page }) => {
+    await page.setViewportSize(WIDE)
+    await page.goto('/gallery/')
+    const rail = page.locator('aside[aria-label="On this page"]')
+
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+    await expect.poll(async () => rail.locator('[aria-current]').count()).toBe(1)
+    const atTop = await rail.locator('[aria-current]').textContent()
+
+    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight - 1400, behavior: 'instant' }))
+    await expect.poll(async () => rail.locator('[aria-current]').textContent()).not.toBe(atTop)
+  })
+
+  test('clicking an entry lands the heading clear of the sticky header', async ({ page }) => {
+    await page.setViewportSize(WIDE)
+    await page.goto('/gallery/')
+
+    await page.locator('aside[aria-label="On this page"] a').nth(2).click()
+    await page.waitForTimeout(900)
+
+    const href = await page
+      .locator('aside[aria-label="On this page"] a')
+      .nth(2)
+      .getAttribute('href')
+    const top = await page.locator(href!).evaluate((el) => el.getBoundingClientRect().top)
+
+    // Header is ~57px. Below that and the heading is underneath it.
+    expect(top, 'heading landed under the sticky header').toBeGreaterThan(56)
+  })
+
+  test('is not rendered on the routes that do not need it', async ({ page }) => {
+    await page.setViewportSize(WIDE)
+    for (const route of ['/', '/work/', '/about/', '/contact/']) {
+      await page.goto(route)
+      await expect(
+        page.locator('aside[aria-label="On this page"]'),
+        `${route} is short enough that a rail is furniture`
+      ).toHaveCount(0)
+    }
+  })
+
+  test('is hidden on a laptop too narrow for the margin', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.goto('/gallery/')
+    await expect(page.locator('aside[aria-label="On this page"]')).toBeHidden()
   })
 })
 
@@ -187,7 +261,7 @@ test.describe('video embeds', () => {
     })
 
     await page.goto('/gallery/')
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }))
     await page.waitForLoadState('networkidle')
 
     expect(
@@ -282,12 +356,16 @@ test.describe('gallery', () => {
     // Every thumbnail is loading="lazy", so anything below the fold reports
     // complete=false until it scrolls into view — which reads identically to a
     // 404. Walk the page first, then judge.
+    //
+    // behavior:'instant' matters: globals.css sets scroll-behavior:smooth for
+    // the contents rail, so a loop of default scrollTo calls queues animations
+    // and never actually reaches the bottom of a 7-screen page.
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
-        window.scrollTo(0, y)
+        window.scrollTo({ top: y, behavior: 'instant' })
         await new Promise((r) => setTimeout(r, 100))
       }
-      window.scrollTo(0, 0)
+      window.scrollTo({ top: 0, behavior: 'instant' })
     })
     await page.waitForLoadState('networkidle')
 

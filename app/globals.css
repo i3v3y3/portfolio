@@ -114,7 +114,23 @@ button:focus-visible {
   border-radius: 3px;
 }
 
+/* Anchor jumps from the contents rail must clear the sticky header, or the
+   heading lands underneath it and the reader sees the middle of a section with
+   no idea which one. 5rem is the header plus a little air. */
+:target,
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;

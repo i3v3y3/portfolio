@@ -7,6 +7,7 @@ import { getAllProjectSlugs, getProjectBySlug } from '@/lib/projects'
 import StackPill from '@/components/StackPill'
 import SpecTable from '@/components/SpecTable'
 import Decisions from '@/components/Decisions'
+import OnThisPage from '@/components/OnThisPage'
 import Architecture from '@/components/Architecture'
 import Footer from '@/components/Footer'
 import { formatDate } from '@/lib/utils'
@@ -59,8 +60,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   // The cover already appears at the top; don't repeat it in the figure grid.
   const figures = photosForProject(slug).filter((p) => p.src !== meta.cover)
 
+  /*
+   * Contents rail. The prose headings are read out of the MDX rather than
+   * listed here — rehype-slug generates their ids from the same text, so
+   * deriving both from one source is what stops the rail linking to an anchor
+   * that a reworded heading has since renamed.
+   */
+  const proseSections = [...content.matchAll(/^## (.+)$/gm)].map((m) => ({
+    id: m[1]
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, ''),
+    label: m[1].trim(),
+  }))
+
+  const sections = [
+    ...proseSections,
+    ...(meta.decisions?.length ? [{ id: 'decisions-heading', label: 'Decisions' }] : []),
+    ...(meta.architecture ? [{ id: 'arch-heading', label: 'How it fits together' }] : []),
+    ...(figures.length > 0 ? [{ id: 'figures-heading', label: 'From the bench' }] : []),
+  ]
+
   return (
-    <div className="mx-auto max-w-[46rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-16">
+    <div className="relative mx-auto max-w-[46rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-16">
+      <OnThisPage sections={sections} />
       {/* FINDING-007: trunk test. Someone arriving here from a search result
           used to see a project title and no indication whose site this is
           until the footer. The name is now the back link. */}
