@@ -18,6 +18,38 @@ featured: true
 cover: "/images/quepay/in-hand.webp"
 coverCaption: "Board photo — top and bottom"
 result: "6+ machine verticals on one board, KES 10M+ processed"
+specs:
+  - ["MCU", "ESP32 (WiFi and BLE), ESP-IDF"]
+  - ["Cellular", "Quectel LTE module, SIM slot on board"]
+  - ["Sensing", "Flow meter (pulse counting), temperature"]
+  - ["Actuation", "Solenoid valves and pumps via an opto-isolated relay stage, surge protection per line"]
+  - ["Interface", "Colour TFT, 4x4 matrix keypad, NFC reader"]
+  - ["Payment", "M-Pesa, NFC, QR"]
+  - ["PCB", "4-layer, Altium Designer"]
+  - ["Firmware", "C++ on FreeRTOS, LVGL operator interface, OTA update"]
+  - ["Interfaces", "I2C, SPI, UART, LTE, BLE"]
+  - ["Enclosure", "Fusion 360, laser-cut acrylic front panel"]
+architecture:
+  caption: "One controller, six machine types. What changes between a water ATM and a laundry machine is the relay stage and the tariff, not the board."
+  nodes:
+    - label: "Mains supply"
+      note: "isolated DC, filtered"
+      children:
+        - label: "ESP32"
+          note: "control, tariff, state machine"
+          children:
+            - label: "Quectel LTE"
+              note: "transactions and telemetry, UART"
+            - label: "TFT + keypad"
+              note: "operator interface, SPI and GPIO"
+            - label: "NFC reader"
+              note: "card payment, I2C"
+            - label: "Flow meter"
+              note: "pulse input, volume metering"
+            - label: "Temperature"
+              note: "product monitoring"
+            - label: "Relay stage"
+              note: "solenoid valve and pump, opto-isolated"
 ---
 
 ## The problem

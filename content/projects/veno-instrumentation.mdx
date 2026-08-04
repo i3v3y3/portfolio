@@ -16,6 +16,36 @@ github: null
 demo: https://veno.co.ke
 featured: true
 cover: "/images/veno/io-board.webp"
+specs:
+  - ["Products", "Level sensor, VeNode energy meter"]
+  - ["Measured", "Liquid level, voltage, current, power factor"]
+  - ["Platform", "Embedded Linux gateway, bare-metal C/C++ on constrained nodes"]
+  - ["Fieldbus", "RS485, Modbus RTU, one-wire"]
+  - ["Radio", "LoRa, WiFi, BLE, NFC"]
+  - ["Uplink", "MQTT, remote diagnostics and threshold alarms"]
+  - ["Panel", "DIN-rail distribution, terminal blocks, protection device selection"]
+  - ["CAD", "KiCad, Fusion 360 for enclosures"]
+  - ["Team", "Five engineers; owned embedded hardware design"]
+architecture:
+  caption: "The gateway is what made this reusable: field devices speak Modbus over RS485 to one node, and only that node needs an uplink."
+  nodes:
+    - label: "Field instruments"
+      note: "level, current, temperature"
+      children:
+        - label: "Acquisition node"
+          note: "signal conditioning and ADC front end"
+          children:
+            - label: "RS485 / Modbus RTU"
+              note: "wired runs, several devices per bus"
+            - label: "LoRa, WiFi, BLE, NFC"
+              note: "chosen per site"
+    - label: "Embedded Linux gateway"
+      note: "aggregates the bus"
+      children:
+        - label: "MQTT uplink"
+          note: "live channels, store-and-forward"
+        - label: "Dashboard"
+          note: "trends, thresholds, remote diagnostics"
 coverCaption: "Product photo — level sensor hardware"
 result: "6 products shipped across school, utility, retail and municipal sites"
 ---

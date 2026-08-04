@@ -5,6 +5,8 @@ import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 import { getAllProjectSlugs, getProjectBySlug } from '@/lib/projects'
 import StackPill from '@/components/StackPill'
+import SpecTable from '@/components/SpecTable'
+import Architecture from '@/components/Architecture'
 import Footer from '@/components/Footer'
 import { formatDate } from '@/lib/utils'
 import { photosForProject } from '@/lib/photos'
@@ -98,6 +100,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         )}
 
+        {/* Specs before the prose: a recruiter screening for a hardware role
+            scans for parts and protocols before reading a sentence, and this
+            was previously scattered across pills and three paragraphs. */}
+        {meta.specs && <SpecTable rows={meta.specs} />}
+
         <div className="prose-ivy flex flex-col gap-4 text-[16px] leading-relaxed text-muted">
           <MDXRemote
             source={content}
@@ -113,6 +120,23 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             }}
           />
         </div>
+
+        {/* Diagram after the prose but before the photographs: it explains
+            what the pictures then show. */}
+        {meta.architecture && (
+          <section className="mt-10" aria-labelledby="arch-heading">
+            <h2
+              id="arch-heading"
+              className="mb-1 font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-foreground"
+            >
+              How it fits together
+            </h2>
+            <Architecture
+              nodes={meta.architecture.nodes}
+              caption={meta.architecture.caption}
+            />
+          </section>
+        )}
 
         {figures.length > 0 && (
           <section className="mt-12" aria-labelledby="figures-heading">

@@ -13,6 +13,30 @@ github: null
 demo: null
 featured: true
 cover: null
+specs:
+  - ["Subsystem", "Electrical Power System for a CubeSat"]
+  - ["Topology", "Four regulated rails on redundant distribution paths"]
+  - ["Conversion", "DC-DC switching converters, input and output filtering"]
+  - ["Protection", "Overcurrent and isolation device per branch, six branches"]
+  - ["PCB", "6-layer, dedicated power and ground planes"]
+  - ["Budget", "5 W orbit-average"]
+  - ["Measured", "92% conversion efficiency, bench characterisation"]
+  - ["Deliverables", "Schematic capture to fabrication release, interface and test documentation"]
+  - ["Reviews", "Two multidisciplinary design reviews"]
+architecture:
+  caption: "Six branches rather than one bus. A short in any payload opens its own protection device and the other five keep running."
+  nodes:
+    - label: "Solar input"
+      note: "conditioning"
+      children:
+        - label: "Battery and regulation"
+          note: "four DC-DC rails, filtered"
+          children:
+            - label: "Branches 1-6"
+              note: "each behind its own overcurrent device"
+              children:
+                - label: "Payload and subsystem loads"
+                  note: "fault isolated from one another"
 coverCaption: "Layout capture — 6-layer stack-up"
 result: "92% conversion efficiency against a 5 W orbit-average budget"
 ---

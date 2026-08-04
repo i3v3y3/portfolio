@@ -16,7 +16,35 @@ export interface ProjectMeta {
   /** Caption for the empty-cover slot, e.g. "Board photo — top and bottom". */
   coverCaption?: string
   result?: string
+  /** Spec table rows, `[label, value]`. Rendered under the cover. */
+  specs?: [string, string][]
+  /** System diagram, rendered before the photographs. */
+  architecture?: { caption?: string; nodes: ArchNode[] }
 }
+
+/**
+ * A node in the architecture tree.
+ *
+ * This lives in frontmatter rather than as a component in the MDX body because
+ * JSX expression props do not survive next-mdx-remote's RSC runtime — the
+ * compiler emits them but they arrive undefined. It is also the better home:
+ * a parts list and a block diagram are structured facts about the project,
+ * the same kind of thing as `stack` and `date`, not prose.
+ */
+export interface ArchNode {
+  label: string
+  note?: string
+  children?: ArchNode[]
+}
+
+// Recursive, so it needs the explicit annotation zod cannot infer on its own.
+const ArchNodeSchema: z.ZodType<ArchNode> = z.lazy(() =>
+  z.object({
+    label: z.string(),
+    note: z.string().optional(),
+    children: z.array(ArchNodeSchema).optional(),
+  })
+)
 
 const ProjectMetaSchema = z.object({
   title: z.string(),
@@ -30,6 +58,13 @@ const ProjectMetaSchema = z.object({
   cover: z.string().nullable().default(null),
   coverCaption: z.string().optional(),
   result: z.string().optional(),
+  specs: z.array(z.tuple([z.string(), z.string()])).optional(),
+  architecture: z
+    .object({
+      caption: z.string().optional(),
+      nodes: z.array(ArchNodeSchema),
+    })
+    .optional(),
 })
 
 const projectsDir = path.join(process.cwd(), 'content', 'projects')
