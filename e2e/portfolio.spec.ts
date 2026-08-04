@@ -125,6 +125,59 @@ test.describe('navigation', () => {
   })
 })
 
+test.describe('video embeds', () => {
+  test('nothing reaches LinkedIn until play is pressed', async ({ page }) => {
+    const thirdParty: string[] = []
+    page.on('request', (r) => {
+      const host = new URL(r.url()).hostname
+      if (!host.includes('localhost') && !host.includes('127.0.0.1')) thirdParty.push(host)
+    })
+
+    await page.goto('/gallery/')
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+    await page.waitForLoadState('networkidle')
+
+    expect(
+      [...new Set(thirdParty)],
+      'the page called out before anyone opted in'
+    ).toEqual([])
+    await expect(page.locator('iframe')).toHaveCount(0)
+  })
+
+  test('every clip is reachable even when the embed is blocked', async ({ page }) => {
+    await page.goto('/gallery/')
+    // Ad blockers and Brave shields kill linkedin.com frames outright, so the
+    // fallback link is the only thing some visitors will ever get.
+    const links = page.getByRole('link', { name: 'watch on LinkedIn' })
+    await expect(links).not.toHaveCount(0)
+    for (const link of await links.all()) {
+      expect(await link.getAttribute('href')).toMatch(/^https:\/\/www\.linkedin\.com\/feed\//)
+    }
+  })
+
+  test('pressing play mounts the player', async ({ page }) => {
+    await page.goto('/gallery/')
+    // ^Play: — a loose /play/i also matches gallery captions containing
+    // "display", which is how this first went green against the wrong element.
+    const play = page.getByRole('button', { name: /^Play:/ }).first()
+    // Retry the click: this is a static export, so the button is in the HTML
+    // before React hydrates and an early click lands on a dead element.
+    await expect(async () => {
+      await play.click()
+      await expect(page.locator('iframe[src*="linkedin.com/embed"]').first()).toBeAttached({
+        timeout: 1500,
+      })
+    }).toPass({ timeout: 15000 })
+  })
+
+  test('each clip says who posted it', async ({ page }) => {
+    await page.goto('/gallery/')
+    // These are company posts, not Ivy's. Attribution is not decoration here.
+    const section = page.locator('section', { hasText: 'On video' })
+    await expect(section.getByText(/Posted by/).first()).toBeVisible()
+  })
+})
+
 test.describe('theme', () => {
   test('all three modes apply, and System stays reachable', async ({ page }) => {
     await page.goto('/')
@@ -173,6 +226,18 @@ test.describe('theme', () => {
 test.describe('gallery', () => {
   test('thumbnails load rather than 404', async ({ page }) => {
     await page.goto('/gallery/')
+    // Every thumbnail is loading="lazy", so anything below the fold reports
+    // complete=false until it scrolls into view — which reads identically to a
+    // 404. Walk the page first, then judge.
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        window.scrollTo(0, y)
+        await new Promise((r) => setTimeout(r, 100))
+      }
+      window.scrollTo(0, 0)
+    })
+    await page.waitForLoadState('networkidle')
+
     const broken = await page.locator('img').evaluateAll((imgs) =>
       imgs.filter((i) => !(i as HTMLImageElement).complete || (i as HTMLImageElement).naturalWidth === 0)
         .map((i) => (i as HTMLImageElement).src)

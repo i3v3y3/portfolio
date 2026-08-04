@@ -1,6 +1,6 @@
 {
-  "importedAt": "2026-08-04T09:33:42.284Z",
-  "count": 24,
+  "importedAt": "2026-08-04T11:50:01.827Z",
+  "count": 33,
   "files": [
     {
       "src": "/images/quepay/production-units.webp",
@@ -56,6 +56,51 @@
       "src": "/images/quepay/bench-rig.webp",
       "kb": 299,
       "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/workspace.webp",
+      "kb": 193,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/batch.webp",
+      "kb": 195,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/board-detail.webp",
+      "kb": 180,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/two-up-test.webp",
+      "kb": 247,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/panel-array.webp",
+      "kb": 202,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/green-panels.webp",
+      "kb": 241,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/lab.webp",
+      "kb": 183,
+      "dims": "1600x1200"
+    },
+    {
+      "src": "/images/bench/parts-staged.webp",
+      "kb": 65,
+      "dims": "800x450"
+    },
+    {
+      "src": "/images/bench/lora-board.webp",
+      "kb": 225,
+      "dims": "1600x900"
     },
     {
       "src": "/images/bench/probing-01.webp",

@@ -142,6 +142,75 @@
     },
 
     {
+      "src": "/images/bench/workspace.webp",
+      "source": "1760513290693.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "A laptop showing the controller firmware source tree beside a monitor with an enclosure model in Fusion 360, with two assembled front panels on the desk",
+      "caption": "Firmware, enclosure CAD and the assembled panels, on one desk"
+    },
+    {
+      "src": "/images/bench/batch.webp",
+      "source": "1771394590556.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "Five populated controller boards laid out in a row, each carrying a cellular module and a radio module, with a reflow oven and soldering station behind",
+      "caption": "A batch of five, populated and waiting for bring-up"
+    },
+    {
+      "src": "/images/bench/board-detail.webp",
+      "source": "1768303044366.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "Close-up of a populated controller board showing an ESP32 module, a Quectel cellular module, a SIM slot and the switching regulator",
+      "caption": "ESP32 and Quectel modem on one board, powered up"
+    },
+    {
+      "src": "/images/bench/two-up-test.webp",
+      "source": "1768303046676.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "Two controller boards wired to bench power through Molex connectors, with a small adapter board between them",
+      "caption": "Two boards on the bench, running against each other"
+    },
+    {
+      "src": "/images/bench/panel-array.webp",
+      "source": "1771394591228.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "A row of bare controller boards spread across a workbench beside an ESD mat, with a reflow oven and bench supply behind",
+      "caption": "Boards back from fab, laid out before assembly"
+    },
+    {
+      "src": "/images/bench/green-panels.webp",
+      "source": "1774594787605.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "Three green circuit boards carrying the QuePay logo on an ESD mat, with a populated board alongside",
+      "caption": "A later revision, in green"
+    },
+    {
+      "src": "/images/bench/lab.webp",
+      "source": "1774594790344.jpeg",
+      "cluster": "bench",
+      "alt": "A workbench with a magnifier lamp, helping hands and probes, and a rack of stacked component trays by the window",
+      "caption": "The bench"
+    },
+    {
+      "src": "/images/bench/parts-staged.webp",
+      "source": "1764049513510.jpeg",
+      "cluster": "bench",
+      "alt": "Circuit boards and display modules in antistatic bags staged on an ESD mat ready for assembly",
+      "caption": "Displays and boards staged for a build"
+    },
+    {
+      "src": "/images/bench/lora-board.webp",
+      "source": "1776433181183.jpeg",
+      "cluster": "bench",
+      "alt": "A triangular black board with a LoRa radio module and helical antenna, three buttons silkscreened call, cancel and bill, beside a green board with a character LCD",
+      "caption": "A triangular LoRa board: three buttons, one radio, no right angles"
+    },
+    {
       "src": "/images/bench/probing-01.webp",
       "source": "IMG_9966.HEIC",
       "cluster": "bench",

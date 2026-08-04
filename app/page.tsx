@@ -4,8 +4,10 @@ import ProjectCard from '@/components/ProjectCard'
 import SectionHeading from '@/components/SectionHeading'
 import Footer from '@/components/Footer'
 import { getAllProjects } from '@/lib/projects'
-import { galleryClusters } from '@/lib/photos'
+import { photos } from '@/lib/photos'
 import { asset } from '@/lib/asset'
+import VideoEmbeds from '@/components/VideoEmbeds'
+import { videos } from '@/content/videos'
 
 /**
  * Home.
@@ -14,6 +16,7 @@ import { asset } from '@/lib/asset'
  *   What I work on  four capability areas
  *   Selected work   three cards, then through to /work/
  *   From the bench  four photos, then through to /gallery/
+ *   See it working  the product demo clip
  *   Get in touch    the three channels
  *
  * Shape follows the reference portfolio the client chose. Two deliberate
@@ -63,13 +66,13 @@ const CONTACT = [
 
 export default function Home() {
   const featured = getAllProjects().slice(0, 3)
-  // One per cluster rather than the first four overall — otherwise the strip is
-  // four near-identical QuePay boards. Screen captures are excluded because they
-  // letterbox badly in a square tile.
-  const bench = galleryClusters()
-    .map((g) => g.photos.find((p) => p.fit !== 'contain'))
-    .filter((p): p is NonNullable<typeof p> => p !== undefined)
+  // Actually from the bench, which the heading promises. Taking one per cluster
+  // meant this strip showed the same three images as the project cards directly
+  // above it. Screen captures are excluded — they letterbox badly in a square.
+  const bench = photos
+    .filter((p) => p.cluster === 'bench' && p.fit !== 'contain')
     .slice(0, 4)
+  const demo = videos.find((v) => v.id === 'mpesa-purchase')
 
   return (
     <div className="mx-auto max-w-[58rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
@@ -170,6 +173,30 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+          </section>
+        )}
+
+        {demo && (
+          <section className="mb-20" aria-labelledby="demo-heading">
+            <div className="mb-8 flex items-baseline justify-between gap-4">
+              <h2
+                id="demo-heading"
+                className="font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-foreground"
+              >
+                See it working
+              </h2>
+              <Link
+                href="/gallery/"
+                className="shrink-0 font-mono text-[12px] uppercase tracking-[0.14em] text-accent no-underline hover:underline"
+              >
+                More video
+              </Link>
+            </div>
+            {/* Only the product demo here. It is the one clip where a reader
+                sees the thing actually work rather than sitting on a bench. */}
+            <div className="max-w-[38rem]">
+              <VideoEmbeds videos={[demo]} />
+            </div>
           </section>
         )}
 
