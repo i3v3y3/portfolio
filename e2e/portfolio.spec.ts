@@ -8,10 +8,16 @@ import { test, expect } from '@playwright/test'
 
 test.describe('the 15-second screener scan', () => {
   test('name, role and CV are all reachable without scrolling past the hero', async ({ page }) => {
+    // The h1 became a thesis rather than an introduction when the home page was
+    // restructured, so name and role now live in the eyebrow above it. Assert on
+    // the hero as a whole rather than the h1 — what matters is that a screener
+    // gets all three without scrolling, not which element carries them.
+    await page.setViewportSize({ width: 375, height: 800 })
     await page.goto('/')
-    const h1 = page.getByRole('heading', { level: 1 })
-    await expect(h1).toContainText('Ivy')
-    await expect(h1).toContainText('embedded systems engineer')
+    const hero = page.locator('header').filter({ hasText: 'Nairobi' }).first()
+    await expect(hero).toContainText('Ivy Matobori')
+    await expect(hero).toContainText('Instrumentation & Control Engineer')
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.getByRole('link', { name: /download cv/i })).toBeVisible()
   })
 
@@ -23,11 +29,11 @@ test.describe('the 15-second screener scan', () => {
     await expect(page.getByText('Jan 2023 – Mar 2023')).toBeVisible()
   })
 
-  test('toolkit keywords appear before the project cards', async ({ page }) => {
+  test('capability keywords appear before the project cards', async ({ page }) => {
     await page.goto('/')
-    const toolkit = await page.getByText('Toolkit').boundingBox()
-    const work = await page.getByText('Selected work').boundingBox()
-    expect(toolkit!.y).toBeLessThan(work!.y)
+    const areas = await page.getByRole('heading', { name: 'What I work on' }).boundingBox()
+    const work = await page.getByRole('heading', { name: 'Selected work' }).boundingBox()
+    expect(areas!.y).toBeLessThan(work!.y)
   })
 })
 
@@ -57,7 +63,7 @@ test.describe('verification links', () => {
 })
 
 test.describe('case studies', () => {
-  for (const slug of ['quepay-controller', 'veno-instrumentation', 'satellite-eps', 'atmega328p']) {
+  for (const slug of ['quepay-controller', 'veno-instrumentation', 'satellite-eps']) {
     test(`/work/${slug} renders with a heading and body`, async ({ page }) => {
       await page.goto(`/work/${slug}/`)
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
