@@ -67,3 +67,20 @@ an empty placeholder looks worse than no photo.
 ## Before publishing
 
 See `FOR-IVY.md`. It lists the claims on this site that still need checking.
+
+## Images
+
+Photographs are imported once and committed, not converted at build time:
+
+```
+node scripts/import-photos.mjs <folder-of-originals>   # photos → public/images/
+node scripts/make-og-image.mjs                          # share card
+node scripts/make-favicon.mjs                           # favicons
+node scripts/make-eps-cover.mjs                         # EPS diagram
+```
+
+`content/photos.json` is the manifest: the importer reads `source` to find the
+original and writes `src`, `width` and the 400w/800w variants. There is no
+build-time image step — a `prebuild` optimiser used to convert every PNG in
+`public/` to WebP, which turned the favicons and the share card into orphans
+that nothing referenced.
