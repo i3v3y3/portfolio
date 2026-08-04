@@ -1,6 +1,6 @@
 {
-  "importedAt": "2026-08-04T12:27:06.123Z",
-  "count": 39,
+  "importedAt": "2026-08-04T12:36:11.643Z",
+  "count": 41,
   "files": [
     {
       "src": "/images/quepay/production-units.webp",
@@ -181,6 +181,16 @@
       "src": "/images/power/modelling.webp",
       "kb": 69,
       "dims": "1280x720"
+    },
+    {
+      "src": "/images/manufacturing/production-workshop.webp",
+      "kb": 98,
+      "dims": "800x1422"
+    },
+    {
+      "src": "/images/manufacturing/eadak.webp",
+      "kb": 57,
+      "dims": "800x1422"
     },
     {
       "src": "/images/personal/intruder-3d.webp",

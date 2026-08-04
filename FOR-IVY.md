@@ -92,17 +92,34 @@ your resume into a true, dated, publicly verifiable one.
 
 ---
 
-## 6. Photos
+## 6. Photos — two things to check
 
-Every image on the site is an empty dashed placeholder. Anything you can publish helps,
-in rough order of value:
+41 photographs are now live: QuePay boards and units, bench and bring-up work, Veno
+field hardware, and two from EADAK. All EXIF is stripped, so none of them carry the GPS
+coordinates the originals had.
 
-1. A portrait — every comparable portfolio has one
-3. Any employer board you have written permission to show
-4. Screenshots from Altium or KiCad — often easier to clear than a photo of hardware
+**a. Two photos show colleagues, and we did not ask them.**
 
-Drop files in `public/` and set `cover:` in the matching file under `content/projects/`.
-The build resizes and converts them automatically.
+`/images/manufacturing/production-workshop.webp` and `/images/manufacturing/eadak.webp`
+both show you with two other people. You consented to your own photo; they have not
+consented to theirs, and the site is public and indexed.
+
+Please ask them. If either says no, deleting the entry from
+`portfolio/content/photos.json` removes it from the site — nothing else needs changing.
+The EADAK visit is worth keeping if you can: nothing else on the site shows you inside a
+real production plant, and it is the sort of thing that separates an engineer who has
+only ever worked on a bench from one who has not.
+
+**b. Employer hardware.**
+
+Most of what is published is QuePay and Veno hardware. You took the pictures; that is
+not the same as permission to publish them. Worth a sentence to whoever decides that at
+each company before this circulates widely.
+
+To remove anything: delete its block from `portfolio/content/photos.json`. To add
+something: put the file alongside the others and add a block with `src`, `source`,
+`cluster`, `alt` and `caption`, then run
+`node scripts/import-photos.mjs <folder-with-the-originals>`.
 
 ---
 

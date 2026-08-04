@@ -43,6 +43,12 @@ const PhotoSchema = z.object({
    * which is exactly the detail that makes it evidence.
    */
   fit: z.enum(['cover', 'contain']).default('cover'),
+  /**
+   * Which part of the frame to keep when cropping. A tall portrait in a 4:3
+   * tile loses roughly the top and bottom third to a centre crop, which on a
+   * photo of people means everyone is beheaded. "top" keeps the faces.
+   */
+  focus: z.enum(['center', 'top']).default('center'),
 })
 
 export type Cluster = z.infer<typeof ClusterSchema>

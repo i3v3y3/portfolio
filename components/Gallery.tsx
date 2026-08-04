@@ -135,7 +135,7 @@ export default function Gallery({
                           photo.fit === 'contain'
                             ? 'object-contain p-2'
                             : 'object-cover group-hover:scale-105'
-                        }`}
+                        } ${photo.focus === 'top' ? 'object-top' : ''}`}
                       />
                     </span>
                     <span className="block px-4 py-3 text-[13px] leading-snug text-muted">

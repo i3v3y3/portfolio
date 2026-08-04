@@ -134,7 +134,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       decoding="async"
                       className={`aspect-[4/3] w-full ${
                         photo.fit === 'contain' ? 'object-contain p-2' : 'object-cover'
-                      }`}
+                      } ${photo.focus === 'top' ? 'object-top' : ''}`}
                     />
                   </div>
                   <figcaption className="text-[13px] leading-snug text-muted">

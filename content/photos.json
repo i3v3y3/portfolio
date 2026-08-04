@@ -11,7 +11,6 @@
     "specific claim the caption may say so, but it must not assert anything the",
     "image does not actually show."
   ],
-
   "clusters": [
     {
       "id": "quepay",
@@ -34,6 +33,11 @@
       "blurb": "Power distribution hardware, modelled and rendered."
     },
     {
+      "id": "manufacturing",
+      "label": "On the production floor",
+      "blurb": "At EADAK in Athi River, one of the few electronics manufacturing plants in the region — seeing how a design behaves once it leaves the bench and meets a production line."
+    },
+    {
       "id": "personal",
       "label": "Personal projects",
       "blurb": "Boards designed outside work, published open source."
@@ -45,7 +49,6 @@
       "gallery": false
     }
   ],
-
   "photos": [
     {
       "src": "/images/quepay/production-units.webp",
@@ -164,7 +167,6 @@
       "alt": "Bench setup with a relay bank, an NFC reader module and an LCD wired together on a cutting mat",
       "caption": "Bench rig: relays, NFC reader and display under test"
     },
-
     {
       "src": "/images/bench/workspace.webp",
       "source": "1760513290693.jpeg",
@@ -286,7 +288,6 @@
       "alt": "A green PCB sitting inside a T-962 benchtop reflow oven",
       "caption": "Board going through reflow"
     },
-
     {
       "src": "/images/veno/io-board.webp",
       "source": "IMG_8592.HEIC",
@@ -335,7 +336,22 @@
       "caption": "Modelling the same board in Blender",
       "fit": "contain"
     },
-
+    {
+      "src": "/images/manufacturing/production-workshop.webp",
+      "source": "1762434961323.jpeg",
+      "cluster": "manufacturing",
+      "alt": "Ivy Matobori and two colleagues in ESD smocks, hairnets and shoe covers, standing outside the door to a production workshop",
+      "caption": "Gowned up outside the production workshop at EADAK",
+      "focus": "top"
+    },
+    {
+      "src": "/images/manufacturing/eadak.webp",
+      "source": "1762434962829.jpeg",
+      "cluster": "manufacturing",
+      "alt": "Ivy Matobori and two colleagues standing in a reception area in front of an illuminated EADAK sign",
+      "caption": "At EADAK, Athi River",
+      "focus": "top"
+    },
     {
       "src": "/images/personal/intruder-3d.webp",
       "source": "Intruder-Back.png",
@@ -344,7 +360,6 @@
       "caption": "Intruder101, 3D view from Altium",
       "fit": "contain"
     },
-
     {
       "src": "/images/about/on-site.webp",
       "source": "IMG_20240426_171628_Original.jpg",
