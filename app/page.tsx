@@ -66,12 +66,28 @@ const CONTACT = [
 
 export default function Home() {
   const featured = getAllProjects().slice(0, 3)
-  // Actually from the bench, which the heading promises. Taking one per cluster
-  // meant this strip showed the same three images as the project cards directly
-  // above it. Screen captures are excluded — they letterbox badly in a square.
-  const bench = photos
-    .filter((p) => p.cluster === 'bench' && p.fit !== 'contain')
-    .slice(0, 4)
+  /**
+   * Hand-picked, not the first four of anything.
+   *
+   * Taking a slice gave four dark boards on the same wooden desk — different
+   * files, but at thumbnail size they read as one image repeated. These four
+   * are deliberately different subjects: a workspace, a batch, a wired-up
+   * integration, and a solenoid. Curation, so it lives here rather than in the
+   * manifest.
+   *
+   * The filter is a guard, not a lookup: if a src here is renamed in
+   * photos.json this quietly shows fewer tiles instead of crashing the build,
+   * and lib/photos.test.ts fails loudly to say why.
+   */
+  const STRIP = [
+    '/images/bench/workspace.webp',
+    '/images/bench/batch.webp',
+    '/images/bench/relay-bank.webp',
+    '/images/quepay/solenoid.webp',
+  ]
+  const bench = STRIP.map((src) => photos.find((p) => p.src === src)).filter(
+    (p): p is NonNullable<typeof p> => p !== undefined
+  )
   const demo = videos.find((v) => v.id === 'mpesa-purchase')
 
   return (

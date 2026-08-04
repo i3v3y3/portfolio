@@ -125,6 +125,28 @@ test.describe('navigation', () => {
   })
 })
 
+test.describe('home page imagery', () => {
+  test('never shows the same photo twice', async ({ page }) => {
+    await page.goto('/')
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        window.scrollTo(0, y)
+        await new Promise((r) => setTimeout(r, 100))
+      }
+    })
+    const srcs = await page
+      .locator('img')
+      .evaluateAll((imgs) => imgs.map((i) => (i as HTMLImageElement).getAttribute('src') ?? ''))
+
+    const seen = new Map<string, number>()
+    for (const s of srcs) seen.set(s, (seen.get(s) ?? 0) + 1)
+    const repeated = [...seen.entries()].filter(([, n]) => n > 1).map(([s, n]) => `${s} ×${n}`)
+
+    expect(repeated, `repeated on the home page: ${repeated.join(', ')}`).toEqual([])
+    expect(srcs.length, 'home page lost its images').toBeGreaterThan(4)
+  })
+})
+
 test.describe('video embeds', () => {
   test('nothing reaches LinkedIn until play is pressed', async ({ page }) => {
     const thirdParty: string[] = []
@@ -269,12 +291,14 @@ test.describe('gallery', () => {
     await page.keyboard.press('ArrowLeft')
     await expect(dialog).toContainText('1 / ')
 
-    // Paging then closing returns to the image you were actually looking at.
+    // Paging then closing returns to the image you were actually looking at,
+    // not the one first clicked. Read the caption from the dialog rather than
+    // hardcoding which photo is second — the manifest order changes as photos
+    // are added, and pinning it here made this fail for the wrong reason.
     await page.keyboard.press('ArrowRight')
+    const caption = (await dialog.locator('p').first().innerText()).trim()
     await page.keyboard.press('Escape')
-    await expect(
-      page.getByRole('button').filter({ hasText: 'First power-on' })
-    ).toBeFocused()
+    await expect(page.getByRole('button').filter({ hasText: caption })).toBeFocused()
   })
 })
 

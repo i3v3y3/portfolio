@@ -56,6 +56,30 @@
       "caption": "Five units assembled and staged"
     },
     {
+      "src": "/images/quepay/in-hand.webp",
+      "source": "1763716790369.jpeg",
+      "cluster": "quepay",
+      "project": "quepay-controller",
+      "alt": "A finished unit held in one hand, its colour screen showing a 10.0 balance and the keypad lit",
+      "caption": "Finished unit, showing a balance"
+    },
+    {
+      "src": "/images/quepay/enclosure.webp",
+      "source": "1755784498381.jpeg",
+      "cluster": "quepay",
+      "project": "quepay-controller",
+      "alt": "An assembled unit standing upright in its blue and white enclosure on a desk",
+      "caption": "Assembled in its enclosure"
+    },
+    {
+      "src": "/images/quepay/solenoid.webp",
+      "source": "1755066936101.jpeg",
+      "cluster": "quepay",
+      "project": "quepay-controller",
+      "alt": "A control panel wired to a brass solenoid valve on the bench, with hand tools alongside",
+      "caption": "Driving a solenoid valve — the actuator end of a dispense"
+    },
+    {
       "src": "/images/quepay/unit-power-on.webp",
       "source": "IMG_0030.HEIC",
       "cluster": "quepay",
@@ -209,6 +233,30 @@
       "cluster": "bench",
       "alt": "A triangular black board with a LoRa radio module and helical antenna, three buttons silkscreened call, cancel and bill, beside a green board with a character LCD",
       "caption": "A triangular LoRa board: three buttons, one radio, no right angles"
+    },
+    {
+      "src": "/images/bench/relay-bank.webp",
+      "source": "1764584835089.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "A controller board with a colour display and NFC reader wired by ribbon cable to a sixteen-channel relay bank",
+      "caption": "Controller driving a sixteen-channel relay bank"
+    },
+    {
+      "src": "/images/bench/under-test.webp",
+      "source": "1756193387684.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "About ten green boards laid out across a bench in front of a programmable power supply, wired for test",
+      "caption": "A run of boards on test in front of the bench supply"
+    },
+    {
+      "src": "/images/bench/green-board.webp",
+      "source": "1764584790059.jpeg",
+      "cluster": "bench",
+      "project": "quepay-controller",
+      "alt": "A green controller board carrying a radio module, a cellular module and a CE mark",
+      "caption": "The green revision, populated and marked"
     },
     {
       "src": "/images/bench/probing-01.webp",

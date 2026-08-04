@@ -1,11 +1,26 @@
 {
-  "importedAt": "2026-08-04T11:50:01.827Z",
-  "count": 33,
+  "importedAt": "2026-08-04T12:27:06.123Z",
+  "count": 39,
   "files": [
     {
       "src": "/images/quepay/production-units.webp",
       "kb": 172,
       "dims": "1600x1200"
+    },
+    {
+      "src": "/images/quepay/in-hand.webp",
+      "kb": 80,
+      "dims": "800x1067"
+    },
+    {
+      "src": "/images/quepay/enclosure.webp",
+      "kb": 91,
+      "dims": "800x1067"
+    },
+    {
+      "src": "/images/quepay/solenoid.webp",
+      "kb": 104,
+      "dims": "800x1067"
     },
     {
       "src": "/images/quepay/unit-power-on.webp",
@@ -101,6 +116,21 @@
       "src": "/images/bench/lora-board.webp",
       "kb": 225,
       "dims": "1600x900"
+    },
+    {
+      "src": "/images/bench/relay-bank.webp",
+      "kb": 378,
+      "dims": "1200x1600"
+    },
+    {
+      "src": "/images/bench/under-test.webp",
+      "kb": 79,
+      "dims": "800x450"
+    },
+    {
+      "src": "/images/bench/green-board.webp",
+      "kb": 339,
+      "dims": "1200x1600"
     },
     {
       "src": "/images/bench/probing-01.webp",
