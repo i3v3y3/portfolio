@@ -27,7 +27,13 @@ describe('photo manifest', () => {
     expect(fs.statSync(file).size).toBeGreaterThan(1000)
   })
 
-  it('ships no image that nothing references', () => {
+  it('ships no image that nothing references', async () => {
+    // Video posters live under public/images too, but they are keyed by URN in
+    // content/videos.ts rather than by src here. Resolve them the same way the
+    // component does so a genuine orphan is still caught.
+    const { videos } = await import('@/content/videos')
+    const posters = new Set(videos.map((v) => `/images/video/${v.urn}.webp`))
+
     const dir = path.join(pub, 'images')
     if (!fs.existsSync(dir)) return
     const onDisk: string[] = []
@@ -45,7 +51,10 @@ describe('photo manifest', () => {
     // beside foo.webp. They are not manifest entries, but an orphaned variant
     // is still dead weight, so resolve each back to its parent and check that.
     const orphans = onDisk.filter(
-      (f) => !described.has(f) && !described.has(f.replace(/-(400|800)\.webp$/, '.webp'))
+      (f) =>
+        !described.has(f) &&
+        !described.has(f.replace(/-(400|800)\.webp$/, '.webp')) &&
+        !posters.has(f)
     )
     expect(orphans, `not in content/photos.json: ${orphans.join(', ')}`).toEqual([])
   })

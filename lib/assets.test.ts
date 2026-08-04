@@ -46,3 +46,21 @@ describe('public assets', () => {
     expect(strays, `source-repo assets still present: ${strays.join(', ')}`).toEqual([])
   })
 })
+
+describe('video posters', () => {
+  const pub = path.join(process.cwd(), 'public')
+
+  it('every embed has a poster on disk', async () => {
+    // A missing poster renders as a blank panel with a play button on it,
+    // which looks like a broken image rather than a deliberate facade. There
+    // is no fallback path, so this is the only thing standing between a new
+    // entry in content/videos.ts and a hole on the page.
+    const { videos } = await import('@/content/videos')
+
+    const missing = videos
+      .map((v) => `images/video/${v.urn}.webp`)
+      .filter((rel) => !fs.existsSync(path.join(pub, rel)))
+
+    expect(missing, `run scripts/make-video-posters.mjs: ${missing.join(', ')}`).toEqual([])
+  })
+})
