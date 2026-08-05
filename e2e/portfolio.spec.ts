@@ -157,7 +157,7 @@ test.describe('on this page rail', () => {
     // hand-kept list produces and this one is meant to avoid.
     await page.setViewportSize(WIDE)
 
-    for (const route of ['/gallery/', '/work/quepay-controller/']) {
+    for (const route of ['/', '/gallery/', '/work/quepay-controller/']) {
       await page.goto(route)
       const rail = page.locator('aside[aria-label="On this page"]')
       const hrefs = await rail.locator('a').evaluateAll((els) =>
@@ -205,7 +205,7 @@ test.describe('on this page rail', () => {
 
   test('is not rendered on the routes that do not need it', async ({ page }) => {
     await page.setViewportSize(WIDE)
-    for (const route of ['/', '/work/', '/about/', '/contact/']) {
+    for (const route of ['/work/', '/about/', '/contact/']) {
       await page.goto(route)
       await expect(
         page.locator('aside[aria-label="On this page"]'),

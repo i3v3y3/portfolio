@@ -8,6 +8,7 @@ import { benchPairs } from '@/lib/photos'
 import { asset, srcSet } from '@/lib/asset'
 import BenchStrip from '@/components/BenchStrip'
 import VideoEmbeds from '@/components/VideoEmbeds'
+import OnThisPage from '@/components/OnThisPage'
 import { videos } from '@/content/videos'
 
 /**
@@ -74,8 +75,20 @@ export default function Home() {
     .map((id) => videos.find((v) => v.id === id))
     .filter((v): v is NonNullable<typeof v> => v !== undefined)
 
+  // Built from what actually renders. Two of the five sections are conditional,
+  // so a hand-kept list would eventually offer a link to a section that is not
+  // on the page.
+  const sections = [
+    { id: 'areas-heading', label: 'What I work on' },
+    { id: 'work-heading', label: 'Selected work' },
+    ...(bench.length > 0 ? [{ id: 'bench-heading', label: 'From the bench' }] : []),
+    ...(featuredVideos.length > 0 ? [{ id: 'demo-heading', label: 'See it working' }] : []),
+    { id: 'contact-heading', label: 'Get in touch' },
+  ]
+
   return (
-    <div className="mx-auto max-w-[58rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
+    <div className="relative mx-auto max-w-[58rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
+      <OnThisPage sections={sections} />
       <Hero />
 
       <main id="main">

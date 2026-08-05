@@ -8,9 +8,12 @@ export interface Section {
 }
 
 /**
- * In-page contents rail, for the two routes long enough to need one: the
- * gallery at 7.6 screens and a case study at 7.3. The other four are between
- * 0.9 and 3.6 screens, where a rail is furniture rather than navigation.
+ * In-page contents rail, for the routes with enough distinct sections to
+ * navigate between: the gallery, a case study, and the home page. Home is the
+ * shortest of the three at 3.6 screens, but it is five separate sections a
+ * reader may want to jump between rather than one long scroll, and it is the
+ * page most people land on first. /work/, /about/ and /contact/ have no rail;
+ * they are between 0.9 and 2 screens, where it would be furniture.
  *
  * WHERE IT SITS. In the right margin beside the content, not in a column that
  * pushes the content left. Only two of six routes have a rail, and a layout
